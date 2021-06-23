@@ -7,7 +7,13 @@ import Parser from 'rss-parser';
 const FEEDS = [
   "https://thefullsnack.com/rss",
   "https://zerox-dg.github.io/blog/rss.xml",
-  "https://quancam.net/rss"
+  "https://quancam.net/rss",
+  "https://learnlingo.co/feed/",
+  "https://thuc.space/index.xml",
+  "https://beautyoncode.com/feed/",
+  "https://xluffy.github.io/index.xml",
+  "https://tuhuynh.com/rss.xml",
+  "https://ehkoo.com/rss.xml"
 ];
 
 export const getServerSideProps = async ({ req }: NextPageContext) => {
@@ -35,11 +41,11 @@ const Home = ({ docs }) => {
 
       <main className={styles.main}>
         {docs.map(doc => (
-          <a className={styles.entry} href={doc.link} key={doc.link}>
+          <a className={styles.entry} href={`/read?url=${doc.link}`} key={doc.link}>
             <h3>{doc.title}</h3>
             <p>{new Date(doc.pubDate).toLocaleDateString()}</p>
             <span>{doc.link}</span>
-            <p>{doc.content.replace(/^"/, '').replace(/"$/, '')}</p>
+            <p dangerouslySetInnerHTML={{ __html: doc.content.replace(/^"/,'').replace(/"$/, '') }}></p>
           </a>
         ))}
       </main>
