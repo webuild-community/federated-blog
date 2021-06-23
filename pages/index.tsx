@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from '../styles/Home.module.css'
 import { NextPageContext  } from 'next';
 import Head from 'next/head';
@@ -70,6 +70,7 @@ const Entry = ({ doc }) => {
 };
 
 const Home = ({ docs }) => {
+  const [loadCount, setLoadCount] = useState(25);
   return (
     <div className={styles.container}>
       <Head>
@@ -78,11 +79,19 @@ const Home = ({ docs }) => {
       </Head>
 
       <main className={styles.main}>
-        {docs.map(doc => (
+        {docs.slice(0, loadCount).map(doc => (
           <LazyLoad key={doc.link} placeholder={<LoadingEntry/>}>
             <Entry doc={doc} />
           </LazyLoad>
         ))}
+        {loadCount < docs.length && (
+          <button
+            className={styles.primaryButton}
+            onClick={() => {
+              setLoadCount(loadCount+25)
+            }}
+          >Load more...</button>
+        )}
       </main>
 
     </div>
