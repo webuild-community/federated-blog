@@ -33,10 +33,10 @@ const ReadPage = ({ article }) => {
 
             <main className={styles.main}>
                 <Link href="/">← Back to home page</Link>
-                <hr/>
+                <hr />
                 <h1>{article.title}</h1>
                 <div dangerouslySetInnerHTML={{ __html: article.content }}></div>
-                <hr/>
+                <hr />
                 <Link href="/">← Back to home page</Link>
             </main>
         </div>

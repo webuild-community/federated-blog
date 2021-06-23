@@ -6,6 +6,16 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
+.bar-of-progress {
+  z-index: 1000;
+}
+
+header {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 10px 0;
+}
+
 a {
   color: inherit;
   text-decoration: none;

@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@badrap/bar-of-progress": "^0.1.2",
     "@mozilla/readability": "^0.4.1",
     "jsdom": "^16.6.0",
     "next": "11.0.1",
