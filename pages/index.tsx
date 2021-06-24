@@ -20,7 +20,9 @@ const FEEDS = [
   "https://tuhuynh.com/rss.xml",
   "https://ehkoo.com/rss.xml",
   "https://anhdung.me/feed/",
-  "https://blog.tracelog.in/feed"
+  "https://blog.tracelog.in/feed",
+  "https://namtx.dev/feed.xml",
+  "https://coder7een.github.io/feed.xml"
 ];
 
 export const getServerSideProps = async ({ req }: NextPageContext) => {
