@@ -22,10 +22,21 @@ describe('excerpt', () => {
     expect(actualResult).toEqual('');
   });
 
+  it('Should work with undefined content', () => {
+    const actualResult = excerpt(undefined, 10);
+    expect(actualResult).toEqual('');
+  });
+
+  it('Should work with undefined word count', () => {
+    const str = 'Hello world';
+    const actualResult = excerpt(str);
+    expect(actualResult).toEqual('');
+  });
+
   it('Should work with zero as word count', () => {
     const str = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
     const actualResult = excerpt(str, 0);
-    expect(actualResult).toEqual('...');
+    expect(actualResult).toEqual('');
   });
 
   it('Should work with unicode string', () => {
