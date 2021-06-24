@@ -1,0 +1,4 @@
+node_modules
+.husky
+.next
+.vercel
