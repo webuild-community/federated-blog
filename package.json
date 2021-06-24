@@ -1,43 +1,44 @@
 {
-  "name": "webuild-blog",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "lint": "eslint --ext .ts,.tsx",
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged && npm run lint"
+    "name": "webuild-blog",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "lint": "eslint --ext .ts,.tsx",
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "prepare": "husky install"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "pretty-quick --staged && npm run lint"
+        }
+    },
+    "dependencies": {
+        "@badrap/bar-of-progress": "^0.1.2",
+        "@moai/core": "^1.0.0",
+        "@mozilla/readability": "^0.4.1",
+        "jsdom": "^16.6.0",
+        "next": "11.0.1",
+        "open-graph-scraper": "^4.9.0",
+        "react": "17.0.2",
+        "react-dom": "17.0.2",
+        "react-icons": "^4.2.0",
+        "react-lazyload": "^3.2.0",
+        "react-loading-skeleton": "^2.2.0",
+        "rss-parser": "^3.12.0"
+    },
+    "devDependencies": {
+        "@types/react": "^17.0.11",
+        "@typescript-eslint/eslint-plugin": "^4.28.0",
+        "@typescript-eslint/parser": "^4.28.0",
+        "eslint": "^7.29.0",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-plugin-prettier": "^3.4.0",
+        "eslint-plugin-react": "^7.24.0",
+        "husky": "^6.0.0",
+        "prettier": "^2.3.1",
+        "pretty-quick": "^3.1.1",
+        "typescript": "^4.3.4"
     }
-  },
-  "dependencies": {
-    "@badrap/bar-of-progress": "^0.1.2",
-    "@moai/core": "^1.0.0",
-    "@mozilla/readability": "^0.4.1",
-    "jsdom": "^16.6.0",
-    "next": "11.0.1",
-    "open-graph-scraper": "^4.9.0",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "react-icons": "^4.2.0",
-    "react-lazyload": "^3.2.0",
-    "react-loading-skeleton": "^2.2.0",
-    "rss-parser": "^3.12.0"
-  },
-  "devDependencies": {
-    "@types/react": "^17.0.11",
-    "@typescript-eslint/eslint-plugin": "^4.28.0",
-    "@typescript-eslint/parser": "^4.28.0",
-    "eslint": "^7.29.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-prettier": "^3.4.0",
-    "eslint-plugin-react": "^7.24.0",
-    "husky": "^6.0.0",
-    "prettier": "^2.3.1",
-    "pretty-quick": "^3.1.1",
-    "typescript": "^4.3.4"
-  }
 }
