@@ -5,6 +5,8 @@ import styles from '../styles/Home.module.css'
 import React from "react";
 import Head from "next/head";
 import Link from "next/link";
+import { Button, DivPx } from '@moai/core';
+import { HiOutlineArrowLeft as LeftArrow } from 'react-icons/hi';
 
 const fetchHtml = async (url) => {
     const res = await fetch(url);
@@ -32,12 +34,12 @@ const ReadPage = ({ article }) => {
             </Head>
 
             <main className={styles.main}>
-                <Link href="/">← Back to home page</Link>
-                <hr />
+                <Link href="/"><Button icon={LeftArrow}>Back to home page</Button></Link>
+                <DivPx size={16}/>
                 <h1>{article.title}</h1>
                 <div dangerouslySetInnerHTML={{ __html: article.content }}></div>
-                <hr />
-                <Link href="/">← Back to home page</Link>
+                <DivPx size={16}/>
+                <Link href="/"><Button icon={LeftArrow}>Back to home page</Button></Link>
             </main>
         </div>
     )

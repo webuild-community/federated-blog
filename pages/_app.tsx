@@ -1,6 +1,9 @@
-import '../styles/globals.css'
 import ProgressBar from '@badrap/bar-of-progress';
 import Router from 'next/router';
+import "@moai/core/dist/bundle.css";
+import "@moai/core/dist/font/remote.css";
+import '../styles/globals.css'
+import '../styles/typography.css';
 
 const progress = new ProgressBar({
   size: 2,

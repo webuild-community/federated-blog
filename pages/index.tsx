@@ -6,8 +6,8 @@ import Link from 'next/link';
 import Parser from 'rss-parser';
 import LazyLoad from 'react-lazyload';
 import Skeleton from 'react-loading-skeleton';
-
-const linkSymbol = <svg width="14px" height="14px" viewBox="0 0 24 24" className="css-1ctnorc"><g id="external_link" className="icon_svg-stroke" stroke="#666" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 13.5 17 19.5 5 19.5 5 7.5 11 7.5"></polyline><path d="M14,4.5 L20,4.5 L20,10.5 M20,4.5 L11,13.5"></path></g></svg>;
+import { Button, DivPx, Tag } from '@moai/core';
+import { HiOutlineExternalLink as externalLink } from 'react-icons/hi';
 
 const FEEDS = [
   "https://thefullsnack.com/rss",
@@ -45,7 +45,7 @@ const getHostName = (url) => {
 
 const LoadingEntry = () => {
   return (
-    <div className={styles.entry}>
+    <div style={{ marginBottom: '32px', padding: '22px', background: '#FFFFFF', borderRadius: 'var(--radius-1)' }}>
       <h1><Skeleton/></h1>
       <Skeleton count={5}/>
     </div>
@@ -54,17 +54,17 @@ const LoadingEntry = () => {
 
 const Entry = ({ doc }) => {
   return (
-    <div className={styles.entry}>
-      <div className={styles.tag}>{getHostName(doc.link)}</div>
+    <div style={{ marginBottom: '32px', padding: '22px', background: '#FFFFFF', borderRadius: 'var(--radius-1)' }}>
+      <Tag color={Tag.colors.gray}>{getHostName(doc.link)}</Tag>
       <Link href={`/read?url=${doc.link}`}><h3>{doc.title}</h3></Link>
-      <p>{new Date(doc.pubDate).toLocaleDateString()}</p>
+      <p>Posted on {new Date(doc.pubDate).toLocaleDateString()}</p>
       <p dangerouslySetInnerHTML={{ __html: doc.content.replace(/^"/, '').replace(/"$/, '') }}></p>
       <div className={styles.readMoreArea}>
         <Link href={`/read?url=${doc.link}`}>
-          <button className={styles.primaryButton}>Read more...</button>
+          <Button highlight>Read more...</Button>
         </Link>
         <Link href={doc.link}>
-          <button className={styles.secondaryButton}>Original link {linkSymbol}</button>
+          <Button iconRight icon={externalLink}>Original link</Button>
         </Link>
       </div>
     </div>
@@ -87,12 +87,12 @@ const Home = ({ docs }) => {
           </LazyLoad>
         ))}
         {loadCount < docs.length && (
-          <button
-            className={styles.primaryButton}
+          <Button
+            fill
             onClick={() => {
               setLoadCount(loadCount+25)
             }}
-          >Load more...</button>
+          >Load more...</Button>
         )}
       </main>
 
