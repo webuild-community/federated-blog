@@ -19,7 +19,6 @@ export const getServerSideProps = async (context) => {
   const doc = new JSDOM(htmlContent, { url });
   const reader = new Readability(doc.window.document);
   const article = reader.parse();
-  console.log(article);
   return {
     props: { article }
   };

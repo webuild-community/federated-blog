@@ -8,6 +8,8 @@ import LazyLoad from 'react-lazyload';
 import Skeleton from 'react-loading-skeleton';
 import { Button, DivPx, Tag } from '@moai/core';
 import { HiOutlineExternalLink as externalLink } from 'react-icons/hi';
+import { getHostName } from '../utils/url';
+import { excerpt, minimum as minimumStringLength } from '../utils/string';
 
 const FEEDS = [
   'https://thefullsnack.com/rss',
@@ -44,11 +46,6 @@ export const getServerSideProps = async ({ req }: NextPageContext) => {
   };
 };
 
-const getHostName = (url) => {
-  const [host, _] = url.replace(/https?:\/\//, '').split('/');
-  return host;
-};
-
 const LoadingEntry = () => {
   return (
     <div
@@ -82,20 +79,14 @@ const Entry = ({ doc }) => {
         <h3>{doc.title}</h3>
       </Link>
       <p>Posted on {new Date(doc.pubDate).toLocaleDateString()}</p>
-      <p
-        dangerouslySetInnerHTML={{
-          __html: doc.content.replace(/^"/, '').replace(/"$/, '')
-        }}
-      ></p>
+      <p>{excerpt(minimumStringLength(doc.contentSnippet, 5), 50)}</p>
       <div className={styles.readMoreArea}>
         <Link href={`/read?url=${doc.link}`}>
-          <Button highlight>Read more...</Button>
+          <Button highlight>Read more</Button>
         </Link>
-        <Link href={doc.link}>
-          <Button iconRight icon={externalLink}>
-            Original link
-          </Button>
-        </Link>
+        <Button iconRight icon={externalLink} href={doc.link} target="_blank">
+          Original link
+        </Button>
       </div>
     </div>
   );
