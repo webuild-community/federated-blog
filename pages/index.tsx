@@ -1,16 +1,10 @@
 import React, { useState } from 'react';
-import styles from '../styles/Home.module.css';
 import { NextPageContext } from 'next';
-import Head from 'next/head';
-import Link from 'next/link';
 import Parser from 'rss-parser';
 import LazyLoad from 'react-lazyload';
-import Skeleton from 'react-loading-skeleton';
-import { Button, DivPx, Tag } from '@moai/core';
-import { HiOutlineExternalLink as externalLink } from 'react-icons/hi';
-import { getHostName } from '../utils/url';
-import { excerpt, minimum as minimumStringLength } from '../utils/string';
-import { RoundedPanel } from '../components/RoundedPane';
+import { Button } from '@moai/core';
+import { Entry, LoadingEntry } from '../components/Entry';
+import Layout from '../components/Layout';
 
 const FEEDS = [
   'https://thefullsnack.com/rss',
@@ -49,69 +43,26 @@ export const getServerSideProps = async ({ req }: NextPageContext) => {
   };
 };
 
-const LoadingEntry = () => {
-  return (
-    <RoundedPanel>
-      <h1>
-        <Skeleton />
-      </h1>
-      <Skeleton count={5} />
-    </RoundedPanel>
-  );
-};
-
-const Entry = ({ doc }) => {
-  return (
-    <RoundedPanel>
-      <Tag color={Tag.colors.gray}>{getHostName(doc.link)}</Tag>
-      <h3>
-        <Link href={`/read?url=${encodeURIComponent(doc.link)}`}>
-          <a>{doc.title}</a>
-        </Link>
-      </h3>
-      <p>Đăng ngày {new Date(doc.pubDate).toLocaleDateString()}</p>
-      <p className="justify">
-        {excerpt(minimumStringLength(doc.contentSnippet, 5), 50)}
-      </p>
-      <div className={styles.readMoreArea}>
-        <Link href={`/read?url=${encodeURIComponent(doc.link)}`}>
-          <Button highlight>Đọc tiếp</Button>
-        </Link>
-        <Button iconRight icon={externalLink} href={doc.link} target="_blank">
-          Đọc trên blog của tác giả
-        </Button>
-      </div>
-    </RoundedPanel>
-  );
-};
-
 const Home = ({ docs }) => {
   const [loadCount, setLoadCount] = useState(25);
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>WeBuild Community Blog</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className={styles.main}>
-        {docs.slice(0, loadCount).map((doc) => (
-          <LazyLoad key={doc.link} placeholder={<LoadingEntry />}>
-            <Entry doc={doc} />
-          </LazyLoad>
-        ))}
-        {loadCount < docs.length && (
-          <Button
-            fill
-            onClick={() => {
-              setLoadCount(loadCount + 25);
-            }}
-          >
-            Xem thêm bài viết...
-          </Button>
-        )}
-      </main>
-    </div>
+    <Layout>
+      {docs.slice(0, loadCount).map((doc) => (
+        <LazyLoad key={doc.link} placeholder={<LoadingEntry />}>
+          <Entry doc={doc} />
+        </LazyLoad>
+      ))}
+      {loadCount < docs.length && (
+        <Button
+          fill
+          onClick={() => {
+            setLoadCount(loadCount + 25);
+          }}
+        >
+          Xem thêm bài viết...
+        </Button>
+      )}
+    </Layout>
   );
 };
 
