@@ -5,6 +5,7 @@ import '@moai/core/dist/bundle.css';
 import '@moai/core/dist/font/remote.css';
 import '../styles/globals.css';
 import '../theme/theme.css';
+``;
 import '../theme/theme';
 
 const progress = new ProgressBar({
@@ -24,10 +25,10 @@ function MyApp({ Component, pageProps }) {
       <header>
         <div className="header-content">
           <Image
-            src="/webuild.svg"
-            alt="Webuild logo"
-            width="145"
-            height="33"
+            src="/weblog.svg"
+            alt="Webuild Blog Logo"
+            width="152"
+            height="36"
           />
         </div>
       </header>

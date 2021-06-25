@@ -33,6 +33,10 @@ header .header-content {
   padding: 10px 0;
 }
 
+header .header-content img {
+  height: 36px;
+}
+
 a {
   color: inherit;
   text-decoration: none;
