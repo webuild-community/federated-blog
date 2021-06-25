@@ -25,7 +25,9 @@ const FEEDS = [
   'https://anhdung.me/feed/',
   'https://blog.tracelog.in/feed',
   'https://namtx.dev/feed.xml',
-  'https://coder7een.github.io/feed.xml'
+  'https://coder7een.github.io/feed.xml',
+  'https://monodyle.github.io/rss.xml',
+  'https://duynglam.com/index.xml'
 ];
 
 export const getServerSideProps = async ({ req }: NextPageContext) => {
