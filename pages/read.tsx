@@ -23,10 +23,19 @@ export const getServerSideProps = async (context) => {
 const ReadPage = ({ article }) => {
   const router = useRouter();
   const { url } = router.query;
+
+  const backButtonClickHandler = () => {
+    if (window.history.length > 1) {
+      router.back();
+    } else {
+      router.push('/');
+    }
+  };
+
   return (
     <Layout>
       <div className="flex-with-space-between">
-        <Button icon={LeftArrow} onClick={() => router.back()}>
+        <Button icon={LeftArrow} onClick={backButtonClickHandler}>
           Quay về trang chủ
         </Button>
         <Button
@@ -48,7 +57,7 @@ const ReadPage = ({ article }) => {
         ></div>
       </RoundedPanel>
       <DivPx size={16} />
-      <Button icon={LeftArrow} onClick={() => router.back()}>
+      <Button icon={LeftArrow} onClick={backButtonClickHandler}>
         Quay về trang chủ
       </Button>
     </Layout>
