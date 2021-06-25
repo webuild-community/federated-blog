@@ -6,13 +6,9 @@ import { useRouter } from 'next/router';
 import { Button, DivPx } from '@moai/core';
 import { HiOutlineArrowLeft as LeftArrow } from 'react-icons/hi';
 import { HiOutlineExternalLink as externalLink } from 'react-icons/hi';
+import { fetchHtml } from '../utils/fetch';
 import { RoundedPanel } from '../components/RoundedPane';
 import Layout from '../components/Layout';
-
-const fetchHtml = async (url) => {
-  const res = await fetch(url);
-  return await res.text();
-};
 
 export const getServerSideProps = async (context) => {
   const { url } = context.query;
