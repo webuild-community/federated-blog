@@ -3,7 +3,8 @@ import Router from 'next/router';
 import '@moai/core/dist/bundle.css';
 import '@moai/core/dist/font/remote.css';
 import '../styles/globals.css';
-import '../styles/typography.css';
+import '../theme/theme.css';
+import '../theme/theme';
 
 const progress = new ProgressBar({
   size: 2,
@@ -20,7 +21,9 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <header>
-        <img src="/webuild.svg" />
+        <div className="header-content">
+          <img src="/webuild.svg" />
+        </div>
       </header>
       <Component {...pageProps} />
     </>

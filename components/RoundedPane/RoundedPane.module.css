@@ -1,0 +1,6 @@
+.roundedPane {
+  margin-bottom: 32px;
+  padding: 22px;
+  background: #ffffff;
+  border-radius: var(--radius-1);
+}
