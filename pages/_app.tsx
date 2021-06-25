@@ -22,7 +22,7 @@ function MyApp({ Component, pageProps }) {
     <>
       <header>
         <div className="header-content">
-          <img src="/webuild.svg" />
+          <img src="/weblog.svg" />
         </div>
       </header>
       <Component {...pageProps} />
