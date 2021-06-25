@@ -1,0 +1,33 @@
+.tag {
+  background: #dfe6e9;
+  padding: 2px 6px;
+  display: inline-block;
+  clear: both;
+}
+
+.entry {
+  border: 1px solid #000;
+  margin: 10px;
+  padding: 10px;
+}
+
+.readMoreArea {
+  display: flex;
+  gap: 10px;
+}
+
+.primaryButton {
+  background: #000;
+  color: #fff;
+  padding: 4px 12px;
+  border: none;
+  cursor: pointer;
+}
+
+.secondaryButton {
+  background: #dfe6e9;
+  color: #000;
+  padding: 4px 12px;
+  border: none;
+  cursor: pointer;
+}
