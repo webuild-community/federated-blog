@@ -1,4 +1,3 @@
-import { NextPageContext } from 'next';
 import { Readability } from '@mozilla/readability';
 import { JSDOM } from 'jsdom';
 import styles from '../styles/Home.module.css';
@@ -9,6 +8,7 @@ import { useRouter } from 'next/router';
 import { Button, DivPx } from '@moai/core';
 import { HiOutlineArrowLeft as LeftArrow } from 'react-icons/hi';
 import { HiOutlineExternalLink as externalLink } from 'react-icons/hi';
+import { RoundedPanel } from '../components/RoundedPane';
 
 const fetchHtml = async (url) => {
   const res = await fetch(url);
@@ -37,7 +37,7 @@ const ReadPage = ({ article }) => {
       </Head>
 
       <main className={styles.main}>
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <div className="flex-with-space-between">
           <Link href="/">
             <Button icon={LeftArrow}>Quay về trang chủ</Button>
           </Link>
@@ -52,18 +52,13 @@ const ReadPage = ({ article }) => {
           </Button>
         </div>
         <DivPx size={16} />
-        <div
-          style={{
-            marginBottom: '32px',
-            padding: '22px',
-            background: '#FFFFFF',
-            borderRadius: 'var(--radius-1)',
-            textAlign: 'justify'
-          }}
-        >
+        <RoundedPanel>
           <h1>{article.title}</h1>
-          <div dangerouslySetInnerHTML={{ __html: article.content }}></div>
-        </div>
+          <div
+            className="justify"
+            dangerouslySetInnerHTML={{ __html: article.content }}
+          ></div>
+        </RoundedPanel>
         <DivPx size={16} />
         <Link href="/">
           <Button icon={LeftArrow}>Quay về trang chủ</Button>

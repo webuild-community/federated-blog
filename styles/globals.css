@@ -41,3 +41,12 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.justify {
+  text-align: justify;
+}
+
+.flex-with-space-between {
+  display: flex;
+  justify-content: space-between;
+}

@@ -1,10 +1,10 @@
 import ProgressBar from '@badrap/bar-of-progress';
 import Router from 'next/router';
-import Link from 'next/link';
 import '@moai/core/dist/bundle.css';
 import '@moai/core/dist/font/remote.css';
 import '../styles/globals.css';
-import '../styles/typography.css';
+import '../theme/theme.css';
+import '../theme/theme';
 
 const progress = new ProgressBar({
   size: 2,

@@ -10,6 +10,7 @@ import { Button, DivPx, Tag } from '@moai/core';
 import { HiOutlineExternalLink as externalLink } from 'react-icons/hi';
 import { getHostName } from '../utils/url';
 import { excerpt, minimum as minimumStringLength } from '../utils/string';
+import { RoundedPanel } from '../components/RoundedPane';
 
 const FEEDS = [
   'https://thefullsnack.com/rss',
@@ -48,32 +49,18 @@ export const getServerSideProps = async ({ req }: NextPageContext) => {
 
 const LoadingEntry = () => {
   return (
-    <div
-      style={{
-        marginBottom: '32px',
-        padding: '22px',
-        background: '#FFFFFF',
-        borderRadius: 'var(--radius-1)'
-      }}
-    >
+    <RoundedPanel>
       <h1>
         <Skeleton />
       </h1>
       <Skeleton count={5} />
-    </div>
+    </RoundedPanel>
   );
 };
 
 const Entry = ({ doc }) => {
   return (
-    <div
-      style={{
-        marginBottom: '32px',
-        padding: '22px',
-        background: '#FFFFFF',
-        borderRadius: 'var(--radius-1)'
-      }}
-    >
+    <RoundedPanel>
       <Tag color={Tag.colors.gray}>{getHostName(doc.link)}</Tag>
       <h3>
         <Link href={`/read?url=${encodeURIComponent(doc.link)}`}>
@@ -81,7 +68,9 @@ const Entry = ({ doc }) => {
         </Link>
       </h3>
       <p>Đăng ngày {new Date(doc.pubDate).toLocaleDateString()}</p>
-      <p>{excerpt(minimumStringLength(doc.contentSnippet, 5), 50)}</p>
+      <p className="justify">
+        {excerpt(minimumStringLength(doc.contentSnippet, 5), 50)}
+      </p>
       <div className={styles.readMoreArea}>
         <Link href={`/read?url=${encodeURIComponent(doc.link)}`}>
           <Button highlight>Đọc tiếp</Button>
@@ -90,7 +79,7 @@ const Entry = ({ doc }) => {
           Đọc trên blog của tác giả
         </Button>
       </div>
-    </div>
+    </RoundedPanel>
   );
 };
 
