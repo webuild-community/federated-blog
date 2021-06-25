@@ -27,7 +27,7 @@ const ReadPage = ({ article }) => {
   return (
     <Layout>
       <div className="flex-with-space-between">
-        <Link href="/">
+        <Link href="/" passHref>
           <Button icon={LeftArrow}>Quay về trang chủ</Button>
         </Link>
         <Button
@@ -49,7 +49,7 @@ const ReadPage = ({ article }) => {
         ></div>
       </RoundedPanel>
       <DivPx size={16} />
-      <Link href="/">
+      <Link href="/" passHref>
         <Button icon={LeftArrow}>Quay về trang chủ</Button>
       </Link>
     </Layout>
