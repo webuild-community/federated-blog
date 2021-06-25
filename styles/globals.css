@@ -24,6 +24,10 @@ body {
 }
 
 header {
+  background: var(--white);
+}
+
+header .header-content {
   max-width: 600px;
   margin: 0 auto;
   padding: 10px 0;
@@ -36,8 +40,4 @@ a {
 
 * {
   box-sizing: border-box;
-}
-
-main img {
-  max-width: 600px;
 }

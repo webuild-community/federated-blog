@@ -10,7 +10,7 @@ class MyDocument extends Document {
     return (
       <Html className="light">
         <Head />
-        <body>
+        <body className="github-theme">
           <Main />
           <NextScript />
         </body>

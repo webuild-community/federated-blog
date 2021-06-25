@@ -1,5 +1,6 @@
 import ProgressBar from '@badrap/bar-of-progress';
 import Router from 'next/router';
+import Link from 'next/link';
 import '@moai/core/dist/bundle.css';
 import '@moai/core/dist/font/remote.css';
 import '../styles/globals.css';
@@ -20,7 +21,9 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <header>
-        <img src="/webuild.svg" />
+        <div className="header-content">
+          <img src="/webuild.svg" />
+        </div>
       </header>
       <Component {...pageProps} />
     </>

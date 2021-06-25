@@ -75,17 +75,19 @@ const Entry = ({ doc }) => {
       }}
     >
       <Tag color={Tag.colors.gray}>{getHostName(doc.link)}</Tag>
-      <Link href={`/read?url=${doc.link}`}>
-        <h3>{doc.title}</h3>
-      </Link>
-      <p>Posted on {new Date(doc.pubDate).toLocaleDateString()}</p>
+      <h3>
+        <Link href={`/read?url=${encodeURIComponent(doc.link)}`}>
+          <a>{doc.title}</a>
+        </Link>
+      </h3>
+      <p>Đăng ngày {new Date(doc.pubDate).toLocaleDateString()}</p>
       <p>{excerpt(minimumStringLength(doc.contentSnippet, 5), 50)}</p>
       <div className={styles.readMoreArea}>
-        <Link href={`/read?url=${doc.link}`}>
-          <Button highlight>Read more</Button>
+        <Link href={`/read?url=${encodeURIComponent(doc.link)}`}>
+          <Button highlight>Đọc tiếp</Button>
         </Link>
         <Button iconRight icon={externalLink} href={doc.link} target="_blank">
-          Original link
+          Đọc trên blog của tác giả
         </Button>
       </div>
     </div>
@@ -114,7 +116,7 @@ const Home = ({ docs }) => {
               setLoadCount(loadCount + 25);
             }}
           >
-            Load more...
+            Xem thêm bài viết...
           </Button>
         )}
       </main>
