@@ -9,7 +9,7 @@ import Skeleton from 'react-loading-skeleton';
 import { Button, DivPx, Tag } from '@moai/core';
 import { HiOutlineExternalLink as externalLink } from 'react-icons/hi';
 import { getHostName } from '../utils/url';
-import { excerpt } from '../utils/string';
+import { excerpt, minimum as minimumStringLength } from '../utils/string';
 
 const FEEDS = [
   'https://thefullsnack.com/rss',
@@ -79,18 +79,14 @@ const Entry = ({ doc }) => {
         <h3>{doc.title}</h3>
       </Link>
       <p>Posted on {new Date(doc.pubDate).toLocaleDateString()}</p>
-      <p>
-        {excerpt(doc.contentSnippet?.replace(/^"/, '').replace(/"$/, ''), 50)}
-      </p>
+      <p>{excerpt(minimumStringLength(doc.contentSnippet, 5), 50)}</p>
       <div className={styles.readMoreArea}>
         <Link href={`/read?url=${doc.link}`}>
           <Button highlight>Read more</Button>
         </Link>
-        <a href={doc.link} target="_blank" rel="noopener noreferrer">
-          <Button iconRight icon={externalLink}>
-            Original link
-          </Button>
-        </a>
+        <Button iconRight icon={externalLink} href={doc.link} target="_blank">
+          Original link
+        </Button>
       </div>
     </div>
   );

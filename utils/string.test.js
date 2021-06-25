@@ -1,4 +1,4 @@
-import { excerpt } from './string';
+import { excerpt, minimum } from './string';
 
 describe('excerpt', () => {
   it('Should work with strings that longer than the word count', () => {
@@ -49,5 +49,23 @@ describe('excerpt', () => {
     const str = 'Xin chào các bạn, đây là tiếng Việt.';
     const actualResult = excerpt(str, 4);
     expect(actualResult).toEqual('Xin chào các bạn...');
+  });
+});
+
+describe('mininum', () => {
+  it('String larger than minimum length should not be changed', () => {
+    const str = 'Hello world';
+    const actual = minimum(str, 5);
+    expect(actual).toEqual(str);
+  });
+
+  it('String shorter than minium length should be returned as empty string', () => {
+    const str = "''";
+    const actual = minimum(str, 5);
+    expect(actual).toEqual('');
+  });
+
+  it('Undefined values should be treated as empty string', () => {
+    expect(minimum(undefined, 5)).toEqual('');
   });
 });
