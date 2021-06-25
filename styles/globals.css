@@ -31,6 +31,7 @@ header .header-content {
   max-width: 600px;
   margin: 0 auto;
   padding: 10px 0;
+  display: flex;
 }
 
 header .header-content img {
@@ -53,4 +54,5 @@ a {
 .flex-with-space-between {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }

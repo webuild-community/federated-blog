@@ -1,7 +1,6 @@
 import { Readability } from '@mozilla/readability';
 import { JSDOM } from 'jsdom';
 import React from 'react';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Button, DivPx } from '@moai/core';
 import { HiOutlineArrowLeft as LeftArrow } from 'react-icons/hi';
@@ -27,9 +26,9 @@ const ReadPage = ({ article }) => {
   return (
     <Layout>
       <div className="flex-with-space-between">
-        <Link href="/" passHref>
-          <Button icon={LeftArrow}>Quay về trang chủ</Button>
-        </Link>
+        <Button icon={LeftArrow} onClick={() => router.back()}>
+          Quay về trang chủ
+        </Button>
         <Button
           iconRight
           highlight
@@ -49,9 +48,9 @@ const ReadPage = ({ article }) => {
         ></div>
       </RoundedPanel>
       <DivPx size={16} />
-      <Link href="/" passHref>
-        <Button icon={LeftArrow}>Quay về trang chủ</Button>
-      </Link>
+      <Button icon={LeftArrow} onClick={() => router.back()}>
+        Quay về trang chủ
+      </Button>
     </Layout>
   );
 };

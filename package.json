@@ -16,16 +16,15 @@
     }
   },
   "dependencies": {
-    "@badrap/bar-of-progress": "^0.1.2",
     "@moai/core": "^1.0.0",
     "@mozilla/readability": "^0.4.1",
     "jsdom": "^16.6.0",
     "next": "11.0.1",
+    "node-cache": "^5.1.2",
     "open-graph-scraper": "^4.9.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-icons": "^4.2.0",
-    "react-lazyload": "^3.2.0",
     "react-loading-skeleton": "^2.2.0",
     "rss-parser": "^3.12.0"
   },
