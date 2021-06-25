@@ -33,7 +33,7 @@ export const Entry = ({ doc }) => {
         {excerpt(minimumStringLength(doc.contentSnippet, 5), 50)}
       </p>
       <div className={styles.readMoreArea}>
-        <Link href={`/read?url=${encodeURIComponent(doc.link)}`}>
+        <Link href={`/read?url=${encodeURIComponent(doc.link)}`} passHref>
           <Button highlight>Đọc tiếp</Button>
         </Link>
         <Button iconRight icon={externalLink} href={doc.link} target="_blank">
