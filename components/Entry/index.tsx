@@ -23,10 +23,8 @@ export const Entry = ({ doc }) => {
   return (
     <RoundedPanel>
       <Tag color={Tag.colors.gray}>{getHostName(doc.link)}</Tag>
-      <h3>
-        <Link href={`/read?url=${encodeURIComponent(doc.link)}`}>
-          <a>{doc.title}</a>
-        </Link>
+      <h3 className="entry-title">
+        <a href={`/read?url=${encodeURIComponent(doc.link)}`}>{doc.title}</a>
       </h3>
       <p>Đăng ngày {new Date(doc.pubDate).toLocaleDateString()}</p>
       <p className="justify">
