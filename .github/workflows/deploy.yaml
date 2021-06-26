@@ -14,7 +14,7 @@ jobs:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.ORG_ID}}
           vercel-project-id: ${{ secrets.PROJECT_ID}}
-          github-comment: false
+          github-comment: true
       - name: preview-url
         run: |
           echo ${{ steps.vercel-action.outputs.preview-url }}
