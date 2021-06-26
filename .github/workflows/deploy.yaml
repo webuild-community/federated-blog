@@ -1,16 +1,13 @@
-name: deploy website
-on:
-  pull_request:
-    branches:
-      - main
+name: deploy
+on: [push, pull_request]
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: deploy site to vercel
       - uses: actions/checkout@v2
       - uses: amondnet/vercel-action@v20
         with:
-          name: federated-blog
           github-token: ${{ secrets.GITHUB_TOKEN }}
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.ORG_ID}}
