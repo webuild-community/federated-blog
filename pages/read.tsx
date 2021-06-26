@@ -8,6 +8,7 @@ import { HiOutlineExternalLink as externalLink } from 'react-icons/hi';
 import { fetchHtml } from '../utils/fetch';
 import { RoundedPanel } from '../components/RoundedPane';
 import Layout from '../components/Layout';
+import styles from '../styles/Read.module.css';
 
 export const getServerSideProps = async (context) => {
   const { url } = context.query;
@@ -34,7 +35,7 @@ const ReadPage = ({ article }) => {
 
   return (
     <Layout>
-      <div className="flex-with-space-between">
+      <div className={styles.topNavigationSection}>
         <Button icon={LeftArrow} onClick={backButtonClickHandler}>
           Quay về trang chủ
         </Button>

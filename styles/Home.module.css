@@ -1,0 +1,15 @@
+.paginationSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.paginationInfo {
+  text-align: center;
+}
+
+@media (max-width: 500px) {
+  .paginationInfo {
+    display: none;
+  }
+}
