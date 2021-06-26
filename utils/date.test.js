@@ -21,4 +21,11 @@ describe('formatDate', () => {
     const expected = '26/06/2021';
     expect(actual).toEqual(expected);
   });
+
+  it('Should works with UTC/GMT string', () => {
+    const input = 'Sat, 26 Jun 2021 13:44:18 GMT';
+    const actual = formatDate(input);
+    const expected = '26/06/2021';
+    expect(actual).toEqual(expected);
+  });
 });
