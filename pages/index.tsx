@@ -30,7 +30,8 @@ const FEEDS = [
   'https://namtx.dev/feed.xml',
   'https://coder7een.github.io/feed.xml',
   'https://monodyle.github.io/rss.xml',
-  'https://duynglam.com/index.xml'
+  'https://duynglam.com/index.xml',
+  'https://dongnguyenltqb.medium.com/feed'
 ];
 
 type RSSItems = ({
