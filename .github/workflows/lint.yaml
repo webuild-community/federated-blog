@@ -1,7 +1,5 @@
-name: Lint
+name: Linter Test
 on:
-  # Trigger the workflow on push or pull request,
-  # but only for the main branch
   push:
     branches:
       - main
@@ -19,6 +17,8 @@ jobs:
           node-version: 12
       - run: yarn
       - name: linter
-        run: next lint
+        uses: wearerequired/lint-action@v1
+        with:
+          eslint: true
       - name: test
         run: yarn test
