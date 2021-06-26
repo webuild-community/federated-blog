@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  ButtonGroup,
-  Button,
-  DivPx,
-  ButtonMenu,
-  Popover,
-  Input
-} from '@moai/core';
+import { ButtonGroup, Button, DivPx, Popover, Input } from '@moai/core';
 import {
   HiOutlineChevronLeft as PrevIcon,
   HiOutlineChevronRight as NextIcon
@@ -54,10 +47,31 @@ const GoToPagePopOver = () => {
   );
 };
 
-const Pagination = ({ page, totalPages }) => {
+type SelectDirection = 'prev' | 'next';
+interface PaginationProps {
+  currentPage: number;
+  totalPages: number;
+  onSelect: (chosenPage: number) => void;
+}
+
+const Pagination = (props: PaginationProps) => {
+  const { currentPage, totalPages } = props;
+  const shouldShowLeftArrow = currentPage > 1;
+  const shouldShowRightArrow = currentPage < totalPages;
+
+  const onClickButtonArrow = (direction: SelectDirection) => {
+    const select = direction === 'next' ? currentPage + 1 : currentPage - 1;
+    props?.onSelect(select);
+  };
+
   return (
     <div className={styles.container}>
-      <ButtonArrow direction="prev" onClick={() => {}} />
+      {shouldShowLeftArrow && (
+        <ButtonArrow
+          direction="prev"
+          onClick={() => onClickButtonArrow('prev')}
+        />
+      )}
       <DivPx size={30} />
       <ButtonGroup skipChildTypeCheck>
         {[
@@ -68,7 +82,12 @@ const Pagination = ({ page, totalPages }) => {
         ]}
       </ButtonGroup>
       <DivPx size={30} />
-      <ButtonArrow direction="next" onClick={() => {}} />
+      {shouldShowRightArrow && (
+        <ButtonArrow
+          direction="next"
+          onClick={() => onClickButtonArrow('next')}
+        />
+      )}
     </div>
   );
 };
