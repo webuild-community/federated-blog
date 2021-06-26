@@ -10,29 +10,11 @@ import {
   HiOutlineChevronRight as NextIcon
 } from 'react-icons/hi';
 import Link from 'next/link';
+import channelsData from '../channels.json';
 
 const CACHE_DURATION = 60 * 15; // 15 minutes cache
 const cache = new NodeCache({ stdTTL: CACHE_DURATION });
 const PAGE_SIZE = 20;
-
-const FEEDS = [
-  'https://thefullsnack.com/rss',
-  'https://zerox-dg.github.io/blog/rss.xml',
-  'https://quancam.net/rss',
-  'https://learnlingo.co/feed/',
-  'https://thuc.space/index.xml',
-  'https://beautyoncode.com/feed/',
-  'https://xluffy.github.io/index.xml',
-  'https://tuhuynh.com/rss.xml',
-  'https://ehkoo.com/rss.xml',
-  'https://anhdung.me/feed/',
-  'https://blog.tracelog.in/feed',
-  'https://namtx.dev/feed.xml',
-  'https://coder7een.github.io/feed.xml',
-  'https://monodyle.github.io/rss.xml',
-  'https://duynglam.com/index.xml',
-  'https://dongnguyenltqb.medium.com/feed'
-];
 
 type RSSItems = ({
   [key: string]: any;
@@ -46,7 +28,15 @@ export const getServerSideProps = async (context: NextPageContext) => {
   if (!docs) {
     docs = (
       await Promise.all(
-        FEEDS.map(async (url) => (await parser.parseURL(url)).items)
+        channelsData.channels.map(async (channel) => {
+          const result = await parser.parseURL(channel.url);
+          return (
+            result?.items.map((item) => ({
+              ...item,
+              author: channel
+            })) ?? []
+          );
+        })
       )
     ).flat();
     docs.sort((a, b) => {

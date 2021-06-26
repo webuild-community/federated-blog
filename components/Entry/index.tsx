@@ -1,28 +1,37 @@
 import React from 'react';
 import Link from 'next/link';
-import Skeleton from 'react-loading-skeleton';
-import { Button, Tag } from '@moai/core';
+import { Button } from '@moai/core';
 import { HiOutlineExternalLink as externalLink } from 'react-icons/hi';
 import { getHostName } from '../../utils/url';
 import { excerpt, minimum as minimumStringLength } from '../../utils/string';
 import { RoundedPanel } from '../RoundedPane';
 import styles from './Entry.module.css';
 
-export const LoadingEntry = () => {
+const DEFAULT_AVATAR = 'https://thefullsnack.com/img/kaonashi.jpg?sz=32';
+
+const EntryAuthor = ({ author }) => {
+  const { name, avatar_url, url } = author;
+  const hostName = getHostName(url);
+  const blogUrl = `https://${hostName}`;
   return (
-    <RoundedPanel>
-      <h1>
-        <Skeleton />
-      </h1>
-      <Skeleton count={5} />
-    </RoundedPanel>
+    <div className={styles.entryAuthor}>
+      <img className="avatar" src={avatar_url || DEFAULT_AVATAR} />
+      <div className="info">
+        <b>{name}</b>
+        <div>
+          <Link href={blogUrl}>
+            <a>{hostName}</a>
+          </Link>
+        </div>
+      </div>
+    </div>
   );
 };
 
 export const Entry = ({ doc }) => {
   return (
     <RoundedPanel>
-      <Tag color={Tag.colors.gray}>{getHostName(doc.link)}</Tag>
+      <EntryAuthor author={doc.author} />
       <h3 className="entry-title">
         <a href={`/read?url=${encodeURIComponent(doc.link)}`}>{doc.title}</a>
       </h3>

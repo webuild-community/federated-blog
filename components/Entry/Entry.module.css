@@ -2,3 +2,16 @@
   display: flex;
   gap: 10px;
 }
+
+.entryAuthor {
+  display: flex;
+  align-items: center;
+}
+
+.entryAuthor img {
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--gray-1);
+  border-radius: 50%;
+  margin-right: 10px;
+}
