@@ -19,7 +19,6 @@
   "dependencies": {
     "@moai/core": "^1.0.0",
     "@mozilla/readability": "^0.4.1",
-    "@types/dompurify": "^2.2.2",
     "dompurify": "^2.2.9",
     "jsdom": "^16.6.0",
     "next": "11.0.1",
@@ -34,6 +33,7 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
+    "@types/dompurify": "^2.2.2",
     "@types/react": "^17.0.11",
     "babel-jest": "^27.0.5",
     "eslint": "^7.29.0",
