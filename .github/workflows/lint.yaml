@@ -12,10 +12,10 @@ jobs:
       - uses: actions/setup-node@v2
       - name: Install Dependencies
         if: steps.cache.outputs.cache-hit != 'true'
-        run: npm ci
+        run: yarn
 
       - name: Prettier
-        run: npm run fmt:check
+        run: yarn fmt:check
 
       - name: ESlint
-        run: npm run lint
+        run: yarn lint
