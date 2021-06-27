@@ -1,10 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ButtonGroup, Button, Popover, Input } from '@moai/core';
 import {
   HiOutlineChevronLeft as PrevIcon,
   HiOutlineChevronRight as NextIcon
 } from 'react-icons/hi';
 import styles from './Pagination.module.css';
+
+const generateCenterItems = (totalPages: number): (string | number)[] => {
+  if (totalPages <= 5) {
+    const result = [];
+    for (let i = 1; i <= totalPages; i++) {
+      result.push(i);
+    }
+    return result;
+  }
+  return [1, 2, 'opt', totalPages - 1, totalPages];
+};
+
+const isInMiddle = (currentPage: number, totalPages: number): boolean => {
+  return currentPage > 2 && currentPage <= totalPages - 2;
+};
 
 const ButtonArrow = ({ direction, onClick }) => {
   return (
@@ -18,27 +33,29 @@ const ButtonArrow = ({ direction, onClick }) => {
 
 const ButtonMore = (props) => {
   const { currentPage, totalPages } = props;
+  const popoverRef = useRef<any>();
   return (
     <Popover
       TargetWrapper={Popover.targetWrappers.block}
       placement="top"
-      target={(popover) => (
-        <Button
-          fill
-          highlight={isInMiddle(currentPage, totalPages)}
-          onClick={() => popover.toggle()}
-          selected={popover.opened}
-        >
-          ...
-        </Button>
+      target={(popover) => {
+        popoverRef.current = popover;
+        return (
+          <Button
+            fill
+            highlight={isInMiddle(currentPage, totalPages)}
+            onClick={() => popover.toggle()}
+            selected={popover.opened}
+          >
+            ...
+          </Button>
+        );
+      }}
+      content={() => (
+        <GoToPagePopOver {...props} popover={popoverRef.current} />
       )}
-      content={() => <GoToPagePopOver {...props} />}
     />
   );
-};
-
-const isInMiddle = (currentPage, totalPages): boolean => {
-  return currentPage > 2 && currentPage < totalPages - 2;
 };
 
 const Center = ({ onSelect, items, currentPage, totalPages }) => {
@@ -58,6 +75,7 @@ const Center = ({ onSelect, items, currentPage, totalPages }) => {
               fill
               key={item}
               highlight={currentPage === item}
+              disabled={totalPages === 1}
               onClick={() => onSelect(item)}
             >
               {item}
@@ -69,7 +87,7 @@ const Center = ({ onSelect, items, currentPage, totalPages }) => {
   );
 };
 
-const GoToPagePopOver = ({ onSelect, totalPages }) => {
+const GoToPagePopOver = ({ onSelect, totalPages, popover }) => {
   const [inputVal, setInputVal] = useState<string>('');
   const submit = () => {
     const submitValue = Number(inputVal.trim());
@@ -82,6 +100,7 @@ const GoToPagePopOver = ({ onSelect, totalPages }) => {
       return;
     }
     onSelect(submitValue);
+    popover?.toggle();
   };
   const onClickHandler = () => {
     submit();
@@ -122,8 +141,12 @@ const ArrowContainer = ({ show, direction, onClick }) => {
   );
 };
 
-const generateCenterItems = (totalPages: number): (string | number)[] => {
-  return [1, 2, 'opt', totalPages - 1, totalPages];
+const CurrentPageInfo = ({ currentPage, totalPages }) => {
+  return (
+    <div className={styles.numberGroup}>
+      <b>Trang {currentPage}</b> / {totalPages}
+    </div>
+  );
 };
 
 type SelectDirection = 'prev' | 'next';
@@ -145,10 +168,13 @@ const Pagination = (props: PaginationProps) => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.numberGroup}>
-        <b>Trang {currentPage}</b> / {totalPages}
-      </div>
-      <div className={styles.buttonGroup}>
+      <CurrentPageInfo currentPage={currentPage} totalPages={totalPages} />
+      <div
+        className={[
+          styles.buttonGroup,
+          totalPages > 99 ? styles.buttonGroupLarge : ''
+        ].join(' ')}
+      >
         <ArrowContainer
           show={shouldShowLeftArrow}
           direction={'prev'}
