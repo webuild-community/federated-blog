@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { ButtonGroup, Button, Popover, Input } from '@moai/core';
 import {
   HiOutlineChevronLeft as PrevIcon,
@@ -111,25 +111,27 @@ const GoToPagePopOver = ({ onSelect, totalPages, popover }) => {
     }
   };
   return (
-    <ButtonGroup skipChildTypeCheck>
-      {[
-        {
-          fill: true,
-          element: (
-            <Input
-              placeholder="Page number"
-              value={inputVal}
-              setValue={setInputVal}
-              onKeyDown={onKeyDownHandler}
-            />
-          )
-        },
-        {
-          fill: false,
-          element: <Button onClick={onClickHandler}>Go</Button>
-        }
-      ]}
-    </ButtonGroup>
+    <div className={styles.popover}>
+      <ButtonGroup skipChildTypeCheck>
+        {[
+          {
+            fill: true,
+            element: (
+              <Input
+                placeholder="Trang"
+                value={inputVal}
+                setValue={setInputVal}
+                onKeyDown={onKeyDownHandler}
+              />
+            )
+          },
+          {
+            fill: false,
+            element: <Button onClick={onClickHandler}>Đi tới</Button>
+          }
+        ]}
+      </ButtonGroup>
+    </div>
   );
 };
 

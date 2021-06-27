@@ -35,6 +35,10 @@
   text-align: center;
 }
 
+.popover {
+  width: 130px;
+}
+
 @media (max-width: 500px) {
   .buttonGroup {
     width: 100%;
