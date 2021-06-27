@@ -1,6 +1,6 @@
 import { Readability } from '@mozilla/readability';
 import { JSDOM } from 'jsdom';
-import React from 'react';
+import createDOMPurify from 'dompurify';
 import { useRouter } from 'next/router';
 import { Button, DivPx } from '@moai/core';
 import { HiOutlineArrowLeft as LeftArrow } from 'react-icons/hi';
@@ -13,10 +13,16 @@ export const getServerSideProps = async (context) => {
   const { url } = context.query;
   const htmlContent = await fetchHtml(url);
   const doc = new JSDOM(htmlContent, { url });
+  const DOMPurify = createDOMPurify(doc.window);
   const reader = new Readability(doc.window.document);
   const article = reader.parse();
   return {
-    props: { article }
+    props: {
+      article: {
+        ...article,
+        content: DOMPurify.sanitize(article.content)
+      }
+    }
   };
 };
 
@@ -54,7 +60,7 @@ const ReadPage = ({ article }) => {
         <div
           className="justify"
           dangerouslySetInnerHTML={{ __html: article.content }}
-        ></div>
+        />
       </RoundedPanel>
       <DivPx size={16} />
       <Button icon={LeftArrow} onClick={backButtonClickHandler}>
