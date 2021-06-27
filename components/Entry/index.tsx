@@ -4,6 +4,7 @@ import { Button } from '@moai/core';
 import { HiOutlineExternalLink as externalLink } from 'react-icons/hi';
 import { getHostName } from '../../utils/url';
 import { excerpt, minimum as minimumStringLength } from '../../utils/string';
+import { formatDate } from '../../utils/date';
 import { RoundedPanel } from '../RoundedPane';
 import styles from './Entry.module.css';
 
@@ -36,7 +37,7 @@ export const Entry = ({ doc }) => {
       <h3 className="entry-title">
         <a href={`/read?url=${encodeURIComponent(doc.link)}`}>{doc.title}</a>
       </h3>
-      <p>Đăng ngày {new Date(doc.pubDate).toLocaleDateString()}</p>
+      <p>Đăng ngày {formatDate(doc.pubDate)}</p>
       <p className="justify">
         {excerpt(minimumStringLength(doc.contentSnippet, 5), 50)}
       </p>
