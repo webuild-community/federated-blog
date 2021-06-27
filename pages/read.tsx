@@ -35,32 +35,33 @@ const ReadPage = ({ article }) => {
 
   return (
     <Layout>
-      <div className={styles.topNavigationSection}>
-        <Button icon={LeftArrow} onClick={backButtonClickHandler}>
-          Quay về trang chủ
-        </Button>
-        <Button
-          iconRight
-          highlight
-          icon={externalLink}
-          href={url as string}
-          target="_blank"
-        >
-          Đọc trên blog của tác giả
-        </Button>
-      </div>
-      <DivPx size={16} />
       <RoundedPanel>
+        <div className={styles.topNavigationSection}>
+          <Button icon={LeftArrow} onClick={backButtonClickHandler}>
+            Quay về trang chủ
+          </Button>
+          <Button
+            iconRight
+            highlight
+            icon={externalLink}
+            href={url as string}
+            target="_blank"
+          >
+            Đọc trên blog của tác giả
+          </Button>
+        </div>
+        <DivPx size={16} />
+
         <h1>{article.title}</h1>
         <div
           className="justify"
           dangerouslySetInnerHTML={{ __html: article.content }}
         ></div>
+        <DivPx size={16} />
+        <Button icon={LeftArrow} onClick={backButtonClickHandler}>
+          Quay về trang chủ
+        </Button>
       </RoundedPanel>
-      <DivPx size={16} />
-      <Button icon={LeftArrow} onClick={backButtonClickHandler}>
-        Quay về trang chủ
-      </Button>
     </Layout>
   );
 };

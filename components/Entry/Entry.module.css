@@ -3,7 +3,7 @@
 }
 
 .readMoreArea > * + * {
-  margin-left: 10px;
+  margin-left: var(--spacing-base);
 }
 
 @media (max-width: 500px) {
@@ -15,6 +15,6 @@
     width: 100%;
   }
   .readMoreArea > * + * {
-    margin: 10px 0 0 0;
+    margin: var(--spacing-base) 0 0 0;
   }
 }
