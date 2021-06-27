@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ButtonGroup, Button, DivPx, Popover, Input } from '@moai/core';
 import {
   HiOutlineChevronLeft as PrevIcon,
@@ -17,11 +17,18 @@ const ButtonArrow = ({ direction, onClick }) => {
 };
 
 const ButtonMore = ({}) => {
+  const [text, setText] = useState<string>('Hello');
   return (
     <Popover
+      TargetWrapper={Popover.targetWrappers.block}
       placement="top"
       target={(popover) => (
-        <Button onClick={() => popover.toggle()} selected={popover.opened}>
+        <Button
+          fill
+          highlight
+          onClick={() => popover.toggle()}
+          selected={popover.opened}
+        >
           ...
         </Button>
       )}
@@ -66,28 +73,44 @@ const Pagination = (props: PaginationProps) => {
 
   return (
     <div className={styles.container}>
-      {shouldShowLeftArrow && (
-        <ButtonArrow
-          direction="prev"
-          onClick={() => onClickButtonArrow('prev')}
-        />
-      )}
-      <DivPx size={30} />
-      <ButtonGroup skipChildTypeCheck>
-        {[
-          {
-            fill: false,
-            element: <ButtonMore />
-          }
-        ]}
-      </ButtonGroup>
-      <DivPx size={30} />
-      {shouldShowRightArrow && (
-        <ButtonArrow
-          direction="next"
-          onClick={() => onClickButtonArrow('next')}
-        />
-      )}
+      <div className={styles.numberGroup}>
+        <b>Page 1</b> of 25{' '}
+      </div>
+      <div className={styles.buttonGroup}>
+        {shouldShowLeftArrow && (
+          <ButtonArrow
+            direction="prev"
+            onClick={() => onClickButtonArrow('prev')}
+          />
+        )}
+        <DivPx size={30} />
+        <div className={styles.buttonGroupCenter}>
+          <ButtonGroup skipChildTypeCheck fill>
+            {[
+              <Button fill key={1}>
+                1
+              </Button>,
+              <Button fill key={2}>
+                2
+              </Button>,
+              <ButtonMore key={3} />,
+              <Button fill key={24}>
+                24
+              </Button>,
+              <Button fill key={25}>
+                25
+              </Button>
+            ]}
+          </ButtonGroup>
+        </div>
+        <DivPx size={30} />
+        {shouldShowRightArrow && (
+          <ButtonArrow
+            direction="next"
+            onClick={() => onClickButtonArrow('next')}
+          />
+        )}
+      </div>
     </div>
   );
 };

@@ -1,3 +1,19 @@
 .container {
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttonGroup {
+  display: flex;
+}
+
+.buttonGroupCenter {
+  flex: 0 0 auto;
+  width: 300px;
+}
+
+.numberGroup {
+  margin-bottom: 8px;
 }
