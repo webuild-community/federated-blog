@@ -18,9 +18,10 @@ export const getServerSideProps = async (context) => {
   const article = reader.parse();
   return {
     props: {
-      article: Object.assign({}, article, {
+      article: {
+        ...article,
         content: DOMPurify.sanitize(article.content)
-      })
+      }
     }
   };
 };
