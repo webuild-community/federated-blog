@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Button } from '@moai/core';
 import { HiOutlineExternalLink as externalLink } from 'react-icons/hi';
 import { getHostName } from '../../utils/url';
@@ -17,7 +18,9 @@ const EntryAuthor = ({ author }) => {
   const avatar = `/avatars/${avatar_url || DEFAULT_AVATAR}`;
   return (
     <div className={styles.entryAuthor}>
-      <img className="avatar" src={avatar} />
+      <div className={styles.entryAvatar}>
+        <Image alt={name} src={avatar} width={48} height={48} />
+      </div>
       <div className="info">
         <b>{name}</b>
         <div>
