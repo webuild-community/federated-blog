@@ -7,15 +7,16 @@ import { excerpt, minimum as minimumStringLength } from '../../utils/string';
 import { RoundedPanel } from '../RoundedPane';
 import styles from './Entry.module.css';
 
-const DEFAULT_AVATAR = 'https://thefullsnack.com/img/kaonashi.jpg?sz=32';
+const DEFAULT_AVATAR = 'kaonashi.jpg';
 
 const EntryAuthor = ({ author }) => {
   const { name, avatar_url, url } = author;
   const hostName = getHostName(url);
   const blogUrl = `https://${hostName}`;
+  const avatar = `/avatars/${avatar_url || DEFAULT_AVATAR}`;
   return (
     <div className={styles.entryAuthor}>
-      <img className="avatar" src={avatar_url || DEFAULT_AVATAR} />
+      <img className="avatar" src={avatar} />
       <div className="info">
         <b>{name}</b>
         <div>
