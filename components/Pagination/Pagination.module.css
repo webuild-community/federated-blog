@@ -6,14 +6,23 @@
 }
 
 .buttonGroup {
+  width: 70%;
   display: flex;
+  justify-content: space-between;
 }
 
 .buttonGroupCenter {
   flex: 0 0 auto;
-  width: 300px;
+  width: 200px;
+}
+
+.arrowContainer {
+  width: 50px;
+  display: flex;
 }
 
 .numberGroup {
+  width: 100%;
+  text-align: center;
   margin-bottom: 8px;
 }
