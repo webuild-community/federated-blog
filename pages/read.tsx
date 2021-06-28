@@ -8,6 +8,7 @@ import { HiOutlineExternalLink as externalLink } from 'react-icons/hi';
 import { fetchHtml } from '../utils/fetch';
 import { RoundedPanel } from '../components/RoundedPane';
 import Layout from '../components/Layout';
+import styles from '../styles/Read.module.css';
 
 export const getServerSideProps = async (context) => {
   const { url } = context.query;
@@ -40,32 +41,34 @@ const ReadPage = ({ article }) => {
 
   return (
     <Layout>
-      <div className="flex-with-space-between">
-        <Button icon={LeftArrow} onClick={backButtonClickHandler}>
-          Quay về trang chủ
-        </Button>
-        <Button
-          iconRight
-          highlight
-          icon={externalLink}
-          href={url as string}
-          target="_blank"
-        >
-          Đọc trên blog của tác giả
-        </Button>
-      </div>
-      <DivPx size={16} />
       <RoundedPanel>
+        <div className={styles.topNavigationSection}>
+          <Button icon={LeftArrow} onClick={backButtonClickHandler}>
+            Quay về trang chủ
+          </Button>
+          <Button
+            iconRight
+            highlight
+            icon={externalLink}
+            href={url as string}
+            target="_blank"
+          >
+            Đọc trên blog của tác giả
+          </Button>
+        </div>
+        <DivPx size={16} />
+
         <h1>{article.title}</h1>
         <div
           className="justify"
           dangerouslySetInnerHTML={{ __html: article.content }}
         />
+        
+        <DivPx size={16} />
+        <Button icon={LeftArrow} onClick={backButtonClickHandler}>
+          Quay về trang chủ
+        </Button>
       </RoundedPanel>
-      <DivPx size={16} />
-      <Button icon={LeftArrow} onClick={backButtonClickHandler}>
-        Quay về trang chủ
-      </Button>
     </Layout>
   );
 };

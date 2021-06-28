@@ -1,6 +1,22 @@
 .readMoreArea {
   display: flex;
-  gap: 10px;
+}
+
+.readMoreArea > * + * {
+  margin-left: var(--spacing-base);
+}
+
+@media (max-width: 500px) {
+  .readMoreArea {
+    flex-direction: column;
+  }
+  .readMoreArea a {
+    flex: 1;
+    width: 100%;
+  }
+  .readMoreArea > * + * {
+    margin: var(--spacing-base) 0 0 0;
+  }
 }
 
 .entryAuthor {
