@@ -1,48 +1,65 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with
-[`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h1 align="center">
+  <img src="./public/weblog.svg" height="36" alt="WeBlog" title="WeBlog" />
+  <br />
+  Federated Blog
+</h1>
+<p align="center">
+<a href="https://github.com/webuild-community/federated-blog"><img src="https://github.com/webuild-community/federated-blog/actions/workflows/deploy.yaml/badge.svg?branch=main" /></a>
+<a href="https://github.com/webuild-community/federated-blog"><img src="https://github.com/webuild-community/federated-blog/actions/workflows/lint.yaml/badge.svg?branch=main" /></a>
+<a href="https://webuild.community"><img src="https://raw.githubusercontent.com/webuild-community/badge/master/svg/made.svg" /></a>
+</p>
 
-## Getting Started
+A federated blogging platform built for WeBuild Community. Federated blog is a
+network of interconnected blogs or websites, which called the [Fediverse].
 
-First, run the development server:
+[fediverse]: https://en.wikipedia.org/wiki/Fediverse
 
-```bash
-npm run dev
-# or
-yarn dev
+## Install
+
+Please make sure you have `node` and `yarn` (or `npm`) installed on your
+machine.
+
+To run federated blog locally or on your own server:
+
+1. Clone this repo
+
+```sh
+git clone https://github.com/webuild-community/federated-blog.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the
-result.
+3. Within your terminal, run `yarn` to install the dependencies
+4. Once the dependencies are installed, run `yarn dev` to start the dev server
+   on `localhost:3000`
 
-You can start editing the page by modifying `pages/index.js`. The page
-auto-updates as you edit the file.
+Don't forget to check out the `channels.json`, where RSS feeds storage.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on
-[http://localhost:3000/api/hello](http://localhost:3000/api/hello). This
-endpoint can be edited in `pages/api/hello.js`.
+To run in production:
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are
-treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead
-of React pages.
+1. Builds the production application into the `.next` folder:
 
-## Learn More
+```sh
+yarn build
+```
 
-To learn more about Next.js, take a look at the following resources:
+2. Start Node.js server:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js
-  features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```sh
+yarn start
+```
 
-You can check out
-[the Next.js GitHub repository](https://github.com/vercel/next.js/) - your
-feedback and contributions are welcome!
+To run test:
 
-## Deploy on Vercel
+```sh
+yarn test
+```
 
-The easiest way to deploy your Next.js app is to use the
-[Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme)
-from the creators of Next.js.
+## Contributing
 
-Check out our
-[Next.js deployment documentation](https://nextjs.org/docs/deployment) for more
-details.
+Please see our [CONTRIBUTING.md](CONTRIBUTING.md).
+
+We have a list of [good first issues] that contain bugs or features which have a
+relatively limited scope. This is a great place to get started and get familiar
+with our contribution process.
+
+[good first issues]:
+  https://github.com/webuild-community/federated-blog/labels/good%20first%20issue
