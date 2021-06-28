@@ -10,6 +10,8 @@
   --highlight-8: #1b5030;
   --highlight-9: #173622;
   --radius-1: 6px;
+  --spacing-base: 1rem;
+  --spacing-container: 1.5rem;
 }
 
 html,
@@ -30,7 +32,7 @@ header {
 header .header-content {
   max-width: 600px;
   margin: 0 auto;
-  padding: 10px 0;
+  padding: var(--spacing-base) var(--spacing-container);
   display: flex;
 }
 
@@ -49,10 +51,4 @@ a {
 
 .justify {
   text-align: justify;
-}
-
-.flex-with-space-between {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
