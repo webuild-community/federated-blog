@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ButtonGroup, Button, Popover, Input, DivPx } from '@moai/core';
+import { Button, Input } from '@moai/core';
 import {
   HiOutlineChevronLeft as PrevIcon,
   HiOutlineChevronRight as NextIcon,
