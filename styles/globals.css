@@ -12,6 +12,7 @@
   --radius-1: 6px;
   --spacing-base: 1rem;
   --spacing-container: 1.5rem;
+  --content-width: 800px;
 }
 
 html,
@@ -30,7 +31,7 @@ header {
 }
 
 header .header-content {
-  max-width: 600px;
+  max-width: var(--content-width);
   margin: 0 auto;
   padding: var(--spacing-base) var(--spacing-container);
   display: flex;
