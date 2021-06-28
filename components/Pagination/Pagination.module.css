@@ -1,49 +1,32 @@
 .container {
+  width: 100%;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
 .buttonGroup {
-  width: 70%;
   display: flex;
-  justify-content: space-between;
-  margin: 8px 0px;
-}
-
-.buttonGroupCenter {
-  flex: 0 0 auto;
-  width: 200px;
-}
-
-.buttonGroupLarge {
-  width: 100%;
-}
-
-.buttonGroupLarge .buttonGroupCenter {
-  width: 350px;
 }
 
 .arrowContainer {
   width: 50px;
   display: flex;
+  justify-content: center;
 }
 
-.numberGroup {
-  width: 100%;
-  text-align: center;
+.navigateSection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 250px;
 }
 
-.popover {
-  width: 130px;
+.navigateSection b {
+  margin-right: 8px;
 }
 
-@media (max-width: 500px) {
-  .buttonGroup {
-    width: 100%;
-  }
-  .arrowContainer {
-    width: auto;
-  }
+.navigateSection .inputContainer {
+  width: 45px;
+  margin-right: 8px;
 }

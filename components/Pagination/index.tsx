@@ -1,137 +1,39 @@
-import React, { useState, useRef } from 'react';
-import { ButtonGroup, Button, Popover, Input } from '@moai/core';
+import React, { useState, useEffect } from 'react';
+import { ButtonGroup, Button, Popover, Input, DivPx } from '@moai/core';
 import {
   HiOutlineChevronLeft as PrevIcon,
-  HiOutlineChevronRight as NextIcon
+  HiOutlineChevronRight as NextIcon,
+  HiChevronDoubleLeft as FirstIcon,
+  HiChevronDoubleRight as LastIcon
 } from 'react-icons/hi';
 import styles from './Pagination.module.css';
 
-const generateCenterItems = (totalPages: number): (string | number)[] => {
-  if (totalPages <= 5) {
-    const result = [];
-    for (let i = 1; i <= totalPages; i++) {
-      result.push(i);
-    }
-    return result;
+const buttonArrowTypes = {
+  prev: {
+    icon: PrevIcon,
+    label: 'Tới trang trước'
+  },
+  next: {
+    icon: NextIcon,
+    label: 'Tới trang sau'
+  },
+  first: {
+    icon: FirstIcon,
+    label: 'Tới trang đầu'
+  },
+  last: {
+    icon: LastIcon,
+    label: 'Tới trang cuối'
   }
-  return [1, 2, 'opt', totalPages - 1, totalPages];
-};
-
-const isInMiddle = (currentPage: number, totalPages: number): boolean => {
-  return currentPage > 2 && currentPage <= totalPages - 2;
 };
 
 const ButtonArrow = ({ direction, onClick }) => {
   return (
     <Button
-      icon={direction == 'prev' ? PrevIcon : NextIcon}
-      iconLabel={direction === 'prev' ? 'Previous' : 'Next'}
-      onClick={onClick}
+      icon={buttonArrowTypes[direction].icon}
+      iconLabel={buttonArrowTypes[direction].label}
+      onClick={() => onClick(direction)}
     />
-  );
-};
-
-const ButtonMore = (props) => {
-  const { currentPage, totalPages } = props;
-  const popoverRef = useRef<any>();
-  return (
-    <Popover
-      TargetWrapper={Popover.targetWrappers.block}
-      placement="top"
-      target={(popover) => {
-        popoverRef.current = popover;
-        return (
-          <Button
-            fill
-            highlight={isInMiddle(currentPage, totalPages)}
-            onClick={() => popover.toggle()}
-            selected={popover.opened}
-          >
-            ...
-          </Button>
-        );
-      }}
-      content={() => (
-        <GoToPagePopOver {...props} popover={popoverRef.current} />
-      )}
-    />
-  );
-};
-
-const Center = ({ onSelect, items, currentPage, totalPages }) => {
-  return (
-    <div className={styles.buttonGroupCenter}>
-      <ButtonGroup skipChildTypeCheck fill>
-        {items.map((item) => {
-          return item === 'opt' ? (
-            <ButtonMore
-              key={item}
-              onSelect={onSelect}
-              currentPage={currentPage}
-              totalPages={totalPages}
-            />
-          ) : (
-            <Button
-              fill
-              key={item}
-              highlight={currentPage === item}
-              disabled={totalPages === 1}
-              onClick={() => onSelect(item)}
-            >
-              {item}
-            </Button>
-          );
-        })}
-      </ButtonGroup>
-    </div>
-  );
-};
-
-const GoToPagePopOver = ({ onSelect, totalPages, popover }) => {
-  const [inputVal, setInputVal] = useState<string>('');
-  const submit = () => {
-    const submitValue = Number(inputVal.trim());
-    if (typeof submitValue !== 'number') {
-      // TODO: show warning invalid value
-      return;
-    }
-    if (submitValue < 1 || submitValue > totalPages) {
-      // TODO: show warning invalid value
-      return;
-    }
-    onSelect(submitValue);
-    popover?.toggle();
-  };
-  const onClickHandler = () => {
-    submit();
-  };
-  const onKeyDownHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      submit();
-    }
-  };
-  return (
-    <div className={styles.popover}>
-      <ButtonGroup skipChildTypeCheck>
-        {[
-          {
-            fill: true,
-            element: (
-              <Input
-                placeholder="Trang"
-                value={inputVal}
-                setValue={setInputVal}
-                onKeyDown={onKeyDownHandler}
-              />
-            )
-          },
-          {
-            fill: false,
-            element: <Button onClick={onClickHandler}>Đi tới</Button>
-          }
-        ]}
-      </ButtonGroup>
-    </div>
   );
 };
 
@@ -143,15 +45,49 @@ const ArrowContainer = ({ show, direction, onClick }) => {
   );
 };
 
-const CurrentPageInfo = ({ currentPage, totalPages }) => {
+const NavigateSection = ({ onSelect, currentPage, totalPages }) => {
+  const [inputVal, setInputVal] = useState<string>(currentPage);
+  useEffect(() => {
+    setInputVal(currentPage);
+  }, [currentPage]);
+  const submit = () => {
+    const submitValue = Number(inputVal.trim());
+    if (typeof submitValue !== 'number') {
+      // TODO: show warning invalid value
+      return;
+    }
+    if (submitValue < 1 || submitValue > totalPages) {
+      // TODO: show warning invalid value
+      return;
+    }
+    onSelect(submitValue);
+  };
+  const onClickHandler = () => {
+    submit();
+  };
+  const onKeyDownHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      submit();
+    }
+  };
   return (
-    <div className={styles.numberGroup}>
-      <b>Trang {currentPage}</b> / {totalPages}
+    <div className={styles.navigateSection}>
+      <b>Trang</b>
+      <div className={styles.inputContainer}>
+        <Input
+          value={inputVal}
+          setValue={setInputVal}
+          onKeyDown={onKeyDownHandler}
+        />
+      </div>
+      <b> / {totalPages}</b>
+      <Button onClick={onClickHandler}>Chọn</Button>
     </div>
   );
 };
 
-type SelectDirection = 'prev' | 'next';
+type SelectDirection = 'prev' | 'next' | 'first' | 'last';
+
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
@@ -170,28 +106,33 @@ const Pagination = (props: PaginationProps) => {
 
   return (
     <div className={styles.container}>
-      <CurrentPageInfo currentPage={currentPage} totalPages={totalPages} />
-      <div
-        className={[
-          styles.buttonGroup,
-          totalPages > 99 ? styles.buttonGroupLarge : ''
-        ].join(' ')}
-      >
+      <div className={styles.buttonGroup}>
+        <ArrowContainer
+          show={shouldShowLeftArrow}
+          direction={'first'}
+          onClick={onClickButtonArrow}
+        />
         <ArrowContainer
           show={shouldShowLeftArrow}
           direction={'prev'}
-          onClick={() => onClickButtonArrow('prev')}
+          onClick={onClickButtonArrow}
         />
-        <Center
-          items={generateCenterItems(totalPages)}
-          onSelect={props.onSelect}
-          currentPage={currentPage}
-          totalPages={totalPages}
-        />
+      </div>
+      <NavigateSection
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onSelect={props?.onSelect}
+      />
+      <div className={styles.buttonGroup}>
         <ArrowContainer
           show={shouldShowRightArrow}
           direction={'next'}
-          onClick={() => onClickButtonArrow('next')}
+          onClick={onClickButtonArrow}
+        />
+        <ArrowContainer
+          show={shouldShowRightArrow}
+          direction={'last'}
+          onClick={onClickButtonArrow}
         />
       </div>
     </div>
