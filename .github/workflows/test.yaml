@@ -1,0 +1,15 @@
+name: Test
+on: [push, pull_request]
+jobs:
+  build:
+    name: Run test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+      - name: Install Dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: yarn
+
+      - name: Jest
+        run: yarn test

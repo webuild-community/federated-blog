@@ -8,11 +8,11 @@ import {
   HiOutlineChevronRight as NextIcon
 } from 'react-icons/hi';
 import Link from 'next/link';
-import { Entry } from '../components/Entry';
-import Layout from '../components/Layout';
-import { RoundedPanel } from '../components/RoundedPane';
-import styles from '../styles/Home.module.css';
-import channelsData from '../channels.json';
+import { Entry } from '@/components/Entry';
+import Layout from '@/components/Layout';
+import { RoundedPanel } from '@/components/RoundedPane';
+import styles from '@/styles/Home.module.css';
+import channelsData from '@/channels.json';
 
 const CACHE_DURATION = 60 * 15; // 15 minutes cache
 const cache = new NodeCache({ stdTTL: CACHE_DURATION });
@@ -30,12 +30,13 @@ export const getServerSideProps = async (context: NextPageContext) => {
   if (!docs) {
     docs = (
       await Promise.all(
-        channelsData.channels.map(async (channel) => {
+        channelsData.channels.map(async (channel, channelIndex) => {
           const result = await parser.parseURL(channel.url);
           return (
             result?.items.map((item) => ({
               ...item,
-              author: channel
+              author: channel,
+              authorIdx: channelIndex
             })) ?? []
           );
         })

@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import '@moai/core/dist/bundle.css';
 import '@moai/core/dist/font/remote.css';
-import '../styles/globals.css';
-import '../theme/theme.css';
-import '../theme/theme';
+import '@/styles/globals.css';
+import '@/theme/theme.css';
+import '@/theme/theme';
 import Link from 'next/link';
 
 function MyApp({ Component, pageProps }) {

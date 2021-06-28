@@ -5,29 +5,36 @@ import { useRouter } from 'next/router';
 import { Button, DivPx } from '@moai/core';
 import { HiOutlineArrowLeft as LeftArrow } from 'react-icons/hi';
 import { HiOutlineExternalLink as externalLink } from 'react-icons/hi';
-import { fetchHtml } from '../utils/fetch';
-import { RoundedPanel } from '../components/RoundedPane';
-import Layout from '../components/Layout';
-import styles from '../styles/Read.module.css';
+import { fetchHtml } from '@/utils/fetch';
+import { RoundedPanel } from '@/components/RoundedPane';
+import Layout from '@/components/Layout';
+import styles from '@/styles/Read.module.css';
+import channelsData from '@/channels.json';
+import { EntryAuthor } from '@/components/Entry';
+import { decodePostUrl } from '@/utils/url';
 
 export const getServerSideProps = async (context) => {
-  const { url } = context.query;
+  const { encoded } = context.query;
+  const { author, url } = decodePostUrl(encoded);
   const htmlContent = await fetchHtml(url);
   const doc = new JSDOM(htmlContent, { url });
   const DOMPurify = createDOMPurify(doc.window);
   const reader = new Readability(doc.window.document);
   const article = reader.parse();
+  const matchedAuthor = channelsData.channels[author];
+
   return {
     props: {
       article: {
         ...article,
         content: DOMPurify.sanitize(article.content)
-      }
+      },
+      author: matchedAuthor
     }
   };
 };
 
-const ReadPage = ({ article }) => {
+const ReadPage = ({ article, author }) => {
   const router = useRouter();
   const { url } = router.query;
 
@@ -56,14 +63,14 @@ const ReadPage = ({ article }) => {
             Đọc trên blog của tác giả
           </Button>
         </div>
-        <DivPx size={16} />
-
+        <DivPx size={32} />
+        <EntryAuthor author={author} />
         <h1>{article.title}</h1>
         <div
           className="justify"
           dangerouslySetInnerHTML={{ __html: article.content }}
         />
-        
+
         <DivPx size={16} />
         <Button icon={LeftArrow} onClick={backButtonClickHandler}>
           Quay về trang chủ

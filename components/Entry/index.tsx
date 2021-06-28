@@ -3,15 +3,15 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@moai/core';
 import { HiOutlineExternalLink as externalLink } from 'react-icons/hi';
-import { getHostName } from '../../utils/url';
-import { excerpt, minimum as minimumStringLength } from '../../utils/string';
-import { formatDate } from '../../utils/date';
+import { encodePostUrl, getHostName } from '@/utils/url';
+import { excerpt, minimum as minimumStringLength } from '@/utils/string';
+import { formatDate } from '@/utils/date';
 import { RoundedPanel } from '../RoundedPane';
 import styles from './Entry.module.css';
 
 const DEFAULT_AVATAR = 'kaonashi.jpg';
 
-const EntryAuthor = ({ author }) => {
+export const EntryAuthor = ({ author }) => {
   const { name, avatar_url, url } = author;
   const hostName = getHostName(url);
   const blogUrl = `https://${hostName}`;
@@ -34,18 +34,19 @@ const EntryAuthor = ({ author }) => {
 };
 
 export const Entry = ({ doc }) => {
+  const encodedUrl = encodePostUrl(doc.link, doc.authorIdx);
   return (
     <RoundedPanel>
       <EntryAuthor author={doc.author} />
       <h3 className="entry-title">
-        <a href={`/read?url=${encodeURIComponent(doc.link)}`}>{doc.title}</a>
+        <a href={`/read/${encodedUrl}`}>{doc.title}</a>
       </h3>
       <p>Đăng ngày {formatDate(doc.pubDate)}</p>
       <p className="justify">
         {excerpt(minimumStringLength(doc.contentSnippet, 5), 50)}
       </p>
       <div className={styles.readMoreArea}>
-        <Link href={`/read?url=${encodeURIComponent(doc.link)}`} passHref>
+        <Link href={`/read/${encodedUrl}`} passHref>
           <Button highlight>Đọc tiếp</Button>
         </Link>
         <Button iconRight icon={externalLink} href={doc.link} target="_blank">
