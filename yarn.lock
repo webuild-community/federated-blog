@@ -856,6 +856,13 @@
     "@types/node" "*"
     "@types/responselike" "*"
 
+"@types/dompurify@^2.2.2":
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/@types/dompurify/-/dompurify-2.2.2.tgz#2c6692580eb7c653785ca3b2c1348847ea8b995d"
+  integrity sha512-8nNWfAa8/oZjH3OLY5Wsxu9ueo0NwVUotIi353g0P2+N5BuTLJyAVOnF4xBUY0NyFUGJHY05o1pO2bqLto+lmA==
+  dependencies:
+    "@types/trusted-types" "*"
+
 "@types/graceful-fs@^4.1.2":
   version "4.1.5"
   resolved "https://registry.yarnpkg.com/@types/graceful-fs/-/graceful-fs-4.1.5.tgz#21ffba0d98da4350db64891f92a9e5db3cdb4e15"
@@ -964,6 +971,11 @@
   integrity sha512-l2P2GO+hFF4Liye+fAajT1qBqvZOiL79YMpEvgGs1xTK7hECxBI8Wz4J7ntACJNiJ9r0vXQqYovroXRLPDja6A==
   dependencies:
     "@types/jest" "*"
+
+"@types/trusted-types@*":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@types/trusted-types/-/trusted-types-2.0.1.tgz#47a7d34b82b3042a902b101311084f7ee900bb78"
+  integrity sha512-TmhE+/eI8PP7EwT9EbK8i74F1ryNn0LToCyEaLpN+X+A3LS1j4CpsCk9Jwq6Y2Uu7w9wdrKl6bujdj5LSsDKKA==
 
 "@types/yargs-parser@*":
   version "20.2.0"
@@ -2122,6 +2134,11 @@ domhandler@^4.0.0, domhandler@^4.2.0:
   integrity sha512-zk7sgt970kzPks2Bf+dwT/PLzghLnsivb9CcxkvR8Mzr66Olr0Ofd8neSbglHJHaHa2MadfoSdNlKYAaafmWfA==
   dependencies:
     domelementtype "^2.2.0"
+
+dompurify@^2.2.9:
+  version "2.2.9"
+  resolved "https://registry.yarnpkg.com/dompurify/-/dompurify-2.2.9.tgz#4b42e244238032d9286a0d2c87b51313581d9624"
+  integrity sha512-+9MqacuigMIZ+1+EwoEltogyWGFTJZWU3258Rupxs+2CGs4H914G9er6pZbsme/bvb5L67o2rade9n21e4RW/w==
 
 domutils@^2.5.2, domutils@^2.6.0, domutils@^2.7.0:
   version "2.7.0"

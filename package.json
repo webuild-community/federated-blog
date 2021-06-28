@@ -8,16 +8,18 @@
     "build": "next build",
     "start": "next start",
     "prepare": "husky install",
-    "test": "jest"
+    "test": "jest",
+    "fmt:check": "prettier --check ./**.{json,js,ts,tsx,jsx,yml,md}"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged && npm run lint"
+      "pre-commit": "pretty-quick --staged && yarn lint"
     }
   },
   "dependencies": {
     "@moai/core": "^1.0.0",
     "@mozilla/readability": "^0.4.1",
+    "dompurify": "^2.2.9",
     "jsdom": "^16.6.0",
     "next": "11.0.1",
     "node-cache": "^5.1.2",
@@ -31,6 +33,7 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
+    "@types/dompurify": "^2.2.2",
     "@types/react": "^17.0.11",
     "babel-jest": "^27.0.5",
     "eslint": "^7.29.0",

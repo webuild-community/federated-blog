@@ -1,0 +1,17 @@
+.topNavigationSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media (max-width: 500px) {
+  .topNavigationSection {
+    flex-direction: column;
+  }
+
+  .topNavigationSection > * {
+    flex: 1;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}

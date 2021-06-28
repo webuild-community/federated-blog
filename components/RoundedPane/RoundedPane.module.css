@@ -1,6 +1,13 @@
 .roundedPane {
-  margin-bottom: 32px;
-  padding: 22px;
-  background: #ffffff;
+  margin-bottom: var(--spacing-container);
+  padding: var(--spacing-container);
   border-radius: var(--radius-1);
+  background: var(--white);
+}
+
+.roundedPaneTransparent {
+  margin-bottom: var(--spacing-container);
+  padding: var(--spacing-container);
+  border-radius: var(--radius-1);
+  background: none;
 }
