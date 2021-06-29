@@ -3,7 +3,11 @@ import Head from 'next/head';
 import styles from './Layout.module.css';
 import Header from '../Header';
 
-const Layout = ({ children, title }) => {
+interface LayoutProps {
+  title: string;
+  children: React.ReactNode;
+}
+const Layout = ({ children, title }: LayoutProps) => {
   return (
     <div className={styles.container}>
       <Head>
