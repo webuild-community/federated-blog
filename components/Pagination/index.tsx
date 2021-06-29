@@ -28,9 +28,10 @@ const buttonArrowTypes = {
   }
 };
 
-const ButtonArrow = ({ direction, onClick }) => {
+const ButtonArrow = ({ disabled, direction, onClick }) => {
   return (
     <Button
+      disabled={disabled}
       icon={buttonArrowTypes[direction].icon}
       iconLabel={buttonArrowTypes[direction].label}
       onClick={() => onClick(direction)}
@@ -38,10 +39,14 @@ const ButtonArrow = ({ direction, onClick }) => {
   );
 };
 
-const ArrowContainer = ({ show, direction, onClick }) => {
+const ArrowContainer = ({ available, direction, onClick }) => {
   return (
     <div className={styles.arrowContainer}>
-      {show && <ButtonArrow direction={direction} onClick={onClick} />}
+      <ButtonArrow
+        direction={direction}
+        onClick={onClick}
+        disabled={!available}
+      />
     </div>
   );
 };
@@ -105,6 +110,7 @@ const NavigateSection = ({ onSelect, currentPage, totalPages }) => {
         icon={CheckIcon}
         iconLabel=""
         disabled={!allowSwitchPage}
+        highlight={allowSwitchPage}
       />
     </div>
   );
@@ -146,12 +152,12 @@ const Pagination = (props: PaginationProps) => {
     <div className={styles.container}>
       <div className={[styles.buttonGroup, styles.arrow1].join(' ')}>
         <ArrowContainer
-          show={shouldShowLeftArrow}
+          available={shouldShowLeftArrow}
           direction={'first'}
           onClick={onClickButtonArrow}
         />
         <ArrowContainer
-          show={shouldShowLeftArrow}
+          available={shouldShowLeftArrow}
           direction={'prev'}
           onClick={onClickButtonArrow}
         />
@@ -163,12 +169,12 @@ const Pagination = (props: PaginationProps) => {
       />
       <div className={[styles.buttonGroup, styles.arrow2].join(' ')}>
         <ArrowContainer
-          show={shouldShowRightArrow}
+          available={shouldShowRightArrow}
           direction={'next'}
           onClick={onClickButtonArrow}
         />
         <ArrowContainer
-          show={shouldShowRightArrow}
+          available={shouldShowRightArrow}
           direction={'last'}
           onClick={onClickButtonArrow}
         />
