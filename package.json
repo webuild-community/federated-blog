@@ -9,8 +9,8 @@
     "start": "next start",
     "prepare": "husky install",
     "test": "jest",
-    "fmt:check": "prettier --check ./**.{json,js,ts,tsx}",
-    "fmt": "prettier --write ."
+    "fmt": "prettier --write .",
+    "fmt:check": "prettier --check ./**.{json,js,ts,tsx,md}"
   },
   "husky": {
     "hooks": {
