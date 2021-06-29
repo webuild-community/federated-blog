@@ -63,7 +63,7 @@ const ReadPage = ({ article }) => {
           className="justify"
           dangerouslySetInnerHTML={{ __html: article.content }}
         />
-        
+
         <DivPx size={16} />
         <Button icon={LeftArrow} onClick={backButtonClickHandler}>
           Quay về trang chủ

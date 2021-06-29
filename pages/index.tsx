@@ -63,7 +63,7 @@ const Home = ({ docs, page, totalPages }) => {
       {docs.map((doc) => (
         <Entry doc={doc} key={doc.link} />
       ))}
-      <RoundedPanel>
+      <RoundedPanel transparent={true}>
         <div className={styles.paginationSection}>
           {page > 1 ? (
             <Link href={`/?page=${page - 1}`} passHref>

@@ -3,7 +3,7 @@ import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import Logo from './logo';
 import { Button } from '@moai/core';
-import { BiMoon, BiSun } from 'react-icons/bi';
+import { HiOutlineMoon, HiOutlineSun } from 'react-icons/hi';
 
 const Header = () => {
   const [mounted, setMounted] = useState(false);
@@ -27,7 +27,7 @@ const Header = () => {
         </Link>
         <Button
           onClick={onToggleTheme}
-          icon={theme === 'light' ? BiMoon : BiSun}
+          icon={theme === 'light' ? HiOutlineMoon : HiOutlineSun}
           iconLabel="Add"
         />
       </div>
