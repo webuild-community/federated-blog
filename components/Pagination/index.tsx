@@ -4,7 +4,8 @@ import {
   HiOutlineChevronLeft as PrevIcon,
   HiOutlineChevronRight as NextIcon,
   HiOutlineChevronDoubleLeft as FirstIcon,
-  HiOutlineChevronDoubleRight as LastIcon
+  HiOutlineChevronDoubleRight as LastIcon,
+  HiOutlineCheck as CheckIcon
 } from 'react-icons/hi';
 import styles from './Pagination.module.css';
 
@@ -45,21 +46,35 @@ const ArrowContainer = ({ show, direction, onClick }) => {
   );
 };
 
+// Validate number-converted value of input in NavigateSection
+const isValidPage = (
+  val: number,
+  totalPages: number,
+  currentPage: number
+): boolean => {
+  if (
+    typeof val !== 'number' || // should be number
+    val === currentPage || // should not equal current page
+    val < 1 ||
+    val > totalPages // should be in correct range of pages
+  ) {
+    return false;
+  }
+  return true;
+};
+
 const NavigateSection = ({ onSelect, currentPage, totalPages }) => {
   const [inputVal, setInputVal] = useState<string>(currentPage);
+  const [focusInput, setFocusInput] = useState<boolean>(false);
+
   useEffect(() => {
-    setInputVal(currentPage);
+    setInputVal(String(currentPage));
   }, [currentPage]);
+
   const submit = () => {
     const submitValue = Number(inputVal.trim());
-    if (typeof submitValue !== 'number') {
-      // TODO: show warning invalid value
-      return;
-    }
-    if (submitValue < 1 || submitValue > totalPages) {
-      // TODO: show warning invalid value
-      return;
-    }
+    // TODO: show warning invalid value
+    if (!isValidPage(submitValue, totalPages, currentPage)) return;
     onSelect(submitValue);
   };
   const onClickHandler = () => {
@@ -70,18 +85,27 @@ const NavigateSection = ({ onSelect, currentPage, totalPages }) => {
       submit();
     }
   };
+  const allowSwitchPage =
+    focusInput && isValidPage(Number(inputVal.trim()), totalPages, currentPage);
   return (
     <div className={styles.navigateSection}>
       <b>Trang</b>
       <div className={styles.inputContainer}>
         <Input
+          onFocus={() => setFocusInput(true)}
+          onBlur={() => setFocusInput(false)}
           value={inputVal}
           setValue={setInputVal}
           onKeyDown={onKeyDownHandler}
         />
       </div>
       <b> / {totalPages}</b>
-      <Button onClick={onClickHandler}>Chọn</Button>
+      <Button
+        onClick={onClickHandler}
+        icon={CheckIcon}
+        iconLabel=""
+        disabled={!allowSwitchPage}
+      />
     </div>
   );
 };
