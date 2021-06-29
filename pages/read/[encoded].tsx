@@ -4,7 +4,7 @@ import createDOMPurify from 'dompurify';
 import { useRouter } from 'next/router';
 import { Button, DivPx } from '@moai/core';
 import { HiOutlineArrowLeft as LeftArrow } from 'react-icons/hi';
-import { HiOutlineExternalLink as externalLink } from 'react-icons/hi';
+import { HiOutlineExternalLink as ExternalLink } from 'react-icons/hi';
 import { fetchHtml } from '@/utils/fetch';
 import { RoundedPanel } from '@/components/RoundedPane';
 import Layout from '@/components/Layout';
@@ -67,7 +67,7 @@ const ReadPage = ({ article, author }: ReadPageProps) => {
           <Button
             iconRight
             highlight
-            icon={externalLink}
+            icon={ExternalLink}
             href={url as string}
             target="_blank"
           >
