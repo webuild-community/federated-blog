@@ -3,8 +3,10 @@ import { JSDOM } from 'jsdom';
 import createDOMPurify from 'dompurify';
 import { useRouter } from 'next/router';
 import { Button, DivPx } from '@moai/core';
-import { HiOutlineArrowLeft as LeftArrow } from 'react-icons/hi';
-import { HiOutlineExternalLink as ExternalLink } from 'react-icons/hi';
+import {
+  HiOutlineArrowLeft as ArrowLeft,
+  HiOutlineExternalLink as ExternalLink
+} from 'react-icons/hi';
 import { fetchHtml } from '@/utils/fetch';
 import { RoundedPanel } from '@/components/RoundedPane';
 import Layout from '@/components/Layout';
@@ -61,7 +63,7 @@ const ReadPage = ({ article, author }: ReadPageProps) => {
     <Layout>
       <RoundedPanel>
         <div className={styles.topNavigationSection}>
-          <Button icon={LeftArrow} onClick={backButtonClickHandler}>
+          <Button icon={ArrowLeft} onClick={backButtonClickHandler}>
             Quay về trang chủ
           </Button>
           <Button
@@ -83,7 +85,7 @@ const ReadPage = ({ article, author }: ReadPageProps) => {
         />
 
         <DivPx size={16} />
-        <Button icon={LeftArrow} onClick={backButtonClickHandler}>
+        <Button icon={ArrowLeft} onClick={backButtonClickHandler}>
           Quay về trang chủ
         </Button>
       </RoundedPanel>
