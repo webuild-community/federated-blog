@@ -1,14 +1,14 @@
-import React from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { Button } from '@moai/core';
-import { HiOutlineExternalLink as externalLink } from 'react-icons/hi';
-import { encodePostUrl, getAvatarUrl, getHostName } from '@/utils/url';
-import { excerpt, minimum as minimumStringLength } from '@/utils/string';
 import { formatDate } from '@/utils/date';
+import { excerpt, minimum as minimumStringLength } from '@/utils/string';
+import { encodePostUrl, getAvatarUrl, getHostName } from '@/utils/url';
+import { Button } from '@moai/core';
+import Image from 'next/image';
+import Link from 'next/link';
+import React from 'react';
+import { HiOutlineExternalLink as externalLink } from 'react-icons/hi';
+import { Author, Doc } from '../../types/sharedTypes';
 import { RoundedPanel } from '../RoundedPane';
 import styles from './Entry.module.css';
-import { Author, Doc } from '../../types/sharedTypes';
 
 interface EntryAuthorProps {
   author: Author;
