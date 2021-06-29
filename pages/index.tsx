@@ -1,17 +1,11 @@
 import React from 'react';
 import { NextPageContext } from 'next';
+import { useRouter } from 'next/router';
 import Parser from 'rss-parser';
-import { Button } from '@moai/core';
-import NodeCache from 'node-cache';
-import {
-  HiOutlineChevronLeft as PrevIcon,
-  HiOutlineChevronRight as NextIcon
-} from 'react-icons/hi';
-import Link from 'next/link';
 import { Entry } from '../components/Entry';
 import Layout from '../components/Layout';
-import { RoundedPanel } from '../components/RoundedPane';
-import styles from '../styles/Home.module.css';
+import Pagination from '../components/Pagination';
+import NodeCache from 'node-cache';
 import channelsData from '../channels.json';
 
 const CACHE_DURATION = 60 * 15; // 15 minutes cache
@@ -58,36 +52,19 @@ export const getServerSideProps = async (context: NextPageContext) => {
 };
 
 const Home = ({ docs, page, totalPages }) => {
+  const router = useRouter();
   return (
     <Layout>
       {docs.map((doc) => (
         <Entry doc={doc} key={doc.link} />
       ))}
-      <RoundedPanel transparent={true}>
-        <div className={styles.paginationSection}>
-          {page > 1 ? (
-            <Link href={`/?page=${page - 1}`} passHref>
-              <Button icon={PrevIcon}>Trang trước</Button>
-            </Link>
-          ) : (
-            <div />
-          )}
-          {totalPages > 1 && (
-            <div className={styles.paginationInfo}>
-              Trang {page} / {totalPages}
-            </div>
-          )}
-          {page < totalPages ? (
-            <Link href={`/?page=${page + 1}`} passHref>
-              <Button icon={NextIcon} iconRight>
-                Trang sau
-              </Button>
-            </Link>
-          ) : (
-            <div />
-          )}
-        </div>
-      </RoundedPanel>
+      <Pagination
+        currentPage={page}
+        totalPages={totalPages}
+        onSelect={(page) => {
+          router.push(`/?page=${page}`);
+        }}
+      />
     </Layout>
   );
 };
