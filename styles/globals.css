@@ -27,7 +27,8 @@ body {
 }
 
 header {
-  background: var(--white);
+  background-color: var(--background-strong);
+  color: var(--text-normal);
 }
 
 header .header-content {
@@ -35,10 +36,17 @@ header .header-content {
   margin: 0 auto;
   padding: var(--spacing-base) var(--spacing-container);
   display: flex;
+  justify-content: space-between;
 }
 
-header .header-content img {
+header .header-content svg {
   height: 36px;
+  width: 152px;
+  background-color: transparent;
+}
+
+.dark .github-theme pre {
+  background-color: var(--gray-6);
 }
 
 a {

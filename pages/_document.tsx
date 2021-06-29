@@ -8,7 +8,7 @@ class MyDocument extends Document {
 
   render() {
     return (
-      <Html className="light">
+      <Html>
         <Head>
           <link
             rel="apple-touch-icon"

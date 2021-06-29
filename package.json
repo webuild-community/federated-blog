@@ -22,6 +22,7 @@
     "dompurify": "^2.2.9",
     "jsdom": "^16.6.0",
     "next": "11.0.1",
+    "next-themes": "^0.0.15",
     "node-cache": "^5.1.2",
     "open-graph-scraper": "^4.9.0",
     "react": "17.0.2",
