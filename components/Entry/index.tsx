@@ -41,14 +41,14 @@ export interface EntryProps {
   doc: Doc;
 }
 export const Entry = ({ doc }: EntryProps) => {
-  const encodedUrl = encodePostUrl(doc.link, doc.authorId);
+  const encodedUrl = encodePostUrl(doc.link as string, doc.authorId);
   return (
     <RoundedPanel>
       <EntryAuthor author={doc.author} />
       <h3 className="entry-title">
         <a href={`/read/${encodedUrl}`}>{doc.title}</a>
       </h3>
-      <p>Đăng ngày {formatDate(doc.pubDate)}</p>
+      <p>Đăng ngày {formatDate(doc.pubDate as string)}</p>
       <p className="justify">
         {excerpt(minimumStringLength(doc.contentSnippet, 5), 50)}
       </p>

@@ -9,7 +9,7 @@ import { fetchHtml } from '@/utils/fetch';
 import { RoundedPanel } from '@/components/RoundedPane';
 import Layout from '@/components/Layout';
 import styles from '@/styles/Read.module.css';
-import { GetStaticProps, GetStaticPaths, GetServerSideProps } from 'next';
+import { GetServerSideProps } from 'next';
 import channelsData from '@/channels.json';
 import { EntryAuthor } from '@/components/Entry';
 import { decodePostUrl } from '@/utils/url';
@@ -29,9 +29,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     props: {
       article: {
         ...article,
-        // TODO: handle error Object is possibly 'null'
-        // @ts-ignore
-        content: DOMPurify.sanitize(article.content)
+        content: DOMPurify.sanitize(article?.content ?? '')
       },
       author: matchedAuthor
     }

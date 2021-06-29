@@ -14,8 +14,8 @@ export const decodePostUrl = (
   buffer: string
 ): { author: number; url: string } => {
   const decoded = base64.decode(buffer);
-  const match = decoded.match(/(\d+)\|(.*)/);
-  if (match?.length > 2) {
+  const match = decoded.match(/(\d+)\|(.*)/) ?? [];
+  if (match.length > 2) {
     const author = +match[1];
     const url = match[2];
     return {
