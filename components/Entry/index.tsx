@@ -8,10 +8,14 @@ import { excerpt, minimum as minimumStringLength } from '../../utils/string';
 import { formatDate } from '../../utils/date';
 import { RoundedPanel } from '../RoundedPane';
 import styles from './Entry.module.css';
+import { Author, Doc } from '../../types/sharedTypes';
 
 const DEFAULT_AVATAR = 'kaonashi.jpg';
 
-const EntryAuthor = ({ author }) => {
+interface EntryAuthorProps {
+  author: Author;
+}
+const EntryAuthor = ({ author }: EntryAuthorProps) => {
   const { name, avatar_url, url } = author;
   const hostName = getHostName(url);
   const blogUrl = `https://${hostName}`;
@@ -33,7 +37,10 @@ const EntryAuthor = ({ author }) => {
   );
 };
 
-export const Entry = ({ doc }) => {
+export interface EntryProps {
+  doc: Doc;
+}
+export const Entry = ({ doc }: EntryProps) => {
   return (
     <RoundedPanel>
       <EntryAuthor author={doc.author} />

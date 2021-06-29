@@ -9,25 +9,35 @@ import { fetchHtml } from '../utils/fetch';
 import { RoundedPanel } from '../components/RoundedPane';
 import Layout from '../components/Layout';
 import styles from '../styles/Read.module.css';
+import { GetStaticProps, GetStaticPaths, GetServerSideProps } from 'next';
 
-export const getServerSideProps = async (context) => {
-  const { url } = context.query;
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const url = context.query.url as string;
   const htmlContent = await fetchHtml(url);
   const doc = new JSDOM(htmlContent, { url });
-  const DOMPurify = createDOMPurify(doc.window);
+  const DOMPurify = createDOMPurify(doc.window as unknown as Window);
   const reader = new Readability(doc.window.document);
   const article = reader.parse();
   return {
     props: {
       article: {
         ...article,
+        // TODO: handle error Object is possibly 'null'
+        // @ts-ignore
         content: DOMPurify.sanitize(article.content)
       }
     }
   };
 };
-
-const ReadPage = ({ article }) => {
+interface Article {
+  title: string;
+  // html content
+  content: string;
+}
+interface ReadPageProps {
+  article: Article;
+}
+const ReadPage = ({ article }: ReadPageProps) => {
   const router = useRouter();
   const { url } = router.query;
 
