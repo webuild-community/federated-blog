@@ -5,8 +5,9 @@ import '@/styles/globals.css';
 import '@/theme/theme.css';
 import '@/theme/theme';
 import Link from 'next/link';
+import { AppProps } from 'next/app';
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <header>

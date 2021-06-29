@@ -9,16 +9,18 @@ import { fetchHtml } from '@/utils/fetch';
 import { RoundedPanel } from '@/components/RoundedPane';
 import Layout from '@/components/Layout';
 import styles from '@/styles/Read.module.css';
+import { GetStaticProps, GetStaticPaths, GetServerSideProps } from 'next';
 import channelsData from '@/channels.json';
 import { EntryAuthor } from '@/components/Entry';
 import { decodePostUrl } from '@/utils/url';
+import { Author } from '@/types/sharedTypes';
 
-export const getServerSideProps = async (context) => {
-  const { encoded } = context.query;
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const encoded = context.query.encoded as string;
   const { author, url } = decodePostUrl(encoded);
   const htmlContent = await fetchHtml(url);
   const doc = new JSDOM(htmlContent, { url });
-  const DOMPurify = createDOMPurify(doc.window);
+  const DOMPurify = createDOMPurify(doc.window as unknown as Window);
   const reader = new Readability(doc.window.document);
   const article = reader.parse();
   const matchedAuthor = channelsData.channels[author];
@@ -27,6 +29,8 @@ export const getServerSideProps = async (context) => {
     props: {
       article: {
         ...article,
+        // TODO: handle error Object is possibly 'null'
+        // @ts-ignore
         content: DOMPurify.sanitize(article.content)
       },
       author: matchedAuthor
@@ -34,7 +38,16 @@ export const getServerSideProps = async (context) => {
   };
 };
 
-const ReadPage = ({ article, author }) => {
+interface Article {
+  title: string;
+  // html content
+  content: string;
+}
+interface ReadPageProps {
+  article: Article;
+  author: Author;
+}
+const ReadPage = ({ article, author }: ReadPageProps) => {
   const router = useRouter();
   const { url } = router.query;
 

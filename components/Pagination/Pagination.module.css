@@ -1,0 +1,57 @@
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttonGroup {
+  display: flex;
+}
+
+.arrowContainer {
+  width: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+.navigateSection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 250px;
+}
+
+.navigateSection b {
+  margin-right: 8px;
+}
+
+.navigateSection .inputContainer {
+  width: 45px;
+  margin-right: 8px;
+}
+
+@media (max-width: 400px) {
+  .navigateSection {
+    grid-area: navigate;
+    margin-bottom: 12px;
+  }
+  .arrow1 {
+    grid-area: arrow1;
+  }
+  .arrow2 {
+    grid-area: arrow2;
+  }
+  .arrow1,
+  .arrow2 {
+    justify-content: space-around;
+  }
+  .container {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto auto;
+    grid-template-areas:
+      'navigate navigate'
+      'arrow1 arrow2';
+  }
+}
