@@ -17,7 +17,7 @@
     }
   },
   "dependencies": {
-    "@moai/core": "^1.0.0",
+    "@moai/core": "^1.1.0",
     "@mozilla/readability": "^0.4.1",
     "dompurify": "^2.2.9",
     "jsdom": "^16.6.0",
