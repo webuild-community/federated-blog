@@ -4,13 +4,16 @@
   Federated Blog
 </h1>
 <p align="center">
-<a href="https://github.com/webuild-community/federated-blog"><img src="https://github.com/webuild-community/federated-blog/actions/workflows/deploy.yaml/badge.svg?branch=main" /></a>
+<a href="https://github.com/webuild-community/federated-blog"><img src="https://github.com/webuild-community/federated-blog/actions/workflows/test.yaml/badge.svg?branch=main" /></a>
 <a href="https://github.com/webuild-community/federated-blog"><img src="https://github.com/webuild-community/federated-blog/actions/workflows/lint.yaml/badge.svg?branch=main" /></a>
 <a href="https://webuild.community"><img src="https://raw.githubusercontent.com/webuild-community/badge/master/svg/made.svg" /></a>
 </p>
 
 A federated blogging platform built for WeBuild Community. Federated blog is a
 network of interconnected blogs or websites, which called the [Fediverse].
+
+It was built for the Webuild community but please feel free to use it for your
+own community.
 
 [fediverse]: https://en.wikipedia.org/wiki/Fediverse
 
