@@ -144,7 +144,7 @@ const Pagination = (props: PaginationProps) => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.buttonGroup}>
+      <div className={[styles.buttonGroup, styles.arrow1].join(' ')}>
         <ArrowContainer
           show={shouldShowLeftArrow}
           direction={'first'}
@@ -161,7 +161,7 @@ const Pagination = (props: PaginationProps) => {
         totalPages={totalPages}
         onSelect={props?.onSelect}
       />
-      <div className={styles.buttonGroup}>
+      <div className={[styles.buttonGroup, styles.arrow2].join(' ')}>
         <ArrowContainer
           show={shouldShowRightArrow}
           direction={'next'}

@@ -30,3 +30,28 @@
   width: 45px;
   margin-right: 8px;
 }
+
+@media (max-width: 400px) {
+  .navigateSection {
+    grid-area: navigate;
+    margin-bottom: 12px;
+  }
+  .arrow1 {
+    grid-area: arrow1;
+  }
+  .arrow2 {
+    grid-area: arrow2;
+  }
+  .arrow1,
+  .arrow2 {
+    justify-content: space-around;
+  }
+  .container {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto auto;
+    grid-template-areas:
+      'navigate navigate'
+      'arrow1 arrow2';
+  }
+}
