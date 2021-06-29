@@ -3,8 +3,8 @@ import { Button, Input } from '@moai/core';
 import {
   HiOutlineChevronLeft as PrevIcon,
   HiOutlineChevronRight as NextIcon,
-  HiChevronDoubleLeft as FirstIcon,
-  HiChevronDoubleRight as LastIcon
+  HiOutlineChevronDoubleLeft as FirstIcon,
+  HiOutlineChevronDoubleRight as LastIcon
 } from 'react-icons/hi';
 import styles from './Pagination.module.css';
 
@@ -100,7 +100,21 @@ const Pagination = (props: PaginationProps) => {
   const shouldShowRightArrow = currentPage < totalPages;
 
   const onClickButtonArrow = (direction: SelectDirection) => {
-    const select = direction === 'next' ? currentPage + 1 : currentPage - 1;
+    let select: number;
+    switch (direction) {
+      case 'next':
+        select = currentPage + 1;
+        break;
+      case 'prev':
+        select = currentPage - 1;
+        break;
+      case 'first':
+        select = 1;
+        break;
+      case 'last':
+        select = totalPages;
+      default:
+    }
     props?.onSelect(select);
   };
 
