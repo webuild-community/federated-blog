@@ -28,7 +28,7 @@ const Header = () => {
         <Button
           onClick={onToggleTheme}
           icon={theme === 'light' ? HiOutlineMoon : HiOutlineSun}
-          iconLabel="Add"
+          iconLabel="Đổi chủ đề"
         />
       </div>
     </header>
