@@ -9,6 +9,7 @@
     "start": "next start",
     "prepare": "husky install",
     "test": "jest",
+    "fmt": "prettier --write .",
     "fmt:check": "prettier --check ./**.{json,js,ts,tsx,md}"
   },
   "husky": {
@@ -19,6 +20,7 @@
   "dependencies": {
     "@moai/core": "^1.1.0",
     "@mozilla/readability": "^0.4.1",
+    "base-64": "^1.0.0",
     "dompurify": "^2.2.9",
     "jsdom": "^16.6.0",
     "next": "11.0.1",
@@ -33,6 +35,7 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
+    "@types/base-64": "^1.0.0",
     "@types/dompurify": "^2.2.2",
     "@types/jsdom": "^16.2.12",
     "@types/react": "^17.0.11",

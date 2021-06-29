@@ -9,6 +9,8 @@ import {
 } from 'react-icons/hi';
 import styles from './Pagination.module.css';
 
+type SelectDirection = 'prev' | 'next' | 'first' | 'last';
+
 const buttonArrowTypes = {
   prev: {
     icon: PrevIcon,
@@ -28,7 +30,12 @@ const buttonArrowTypes = {
   }
 };
 
-const ButtonArrow = ({ disabled, direction, onClick }) => {
+interface ButtonArrowProps {
+  disabled: boolean;
+  direction: SelectDirection;
+  onClick: (direction: SelectDirection) => void;
+}
+const ButtonArrow = ({ disabled, direction, onClick }: ButtonArrowProps) => {
   return (
     <Button
       disabled={disabled}
@@ -38,14 +45,13 @@ const ButtonArrow = ({ disabled, direction, onClick }) => {
     />
   );
 };
-
-const ArrowContainer = ({ available, direction, onClick }) => {
+const ArrowContainer = ({ disabled, direction, onClick }: ButtonArrowProps) => {
   return (
     <div className={styles.arrowContainer}>
       <ButtonArrow
         direction={direction}
         onClick={onClick}
-        disabled={!available}
+        disabled={disabled}
       />
     </div>
   );
@@ -68,8 +74,17 @@ const isValidPage = (
   return true;
 };
 
-const NavigateSection = ({ onSelect, currentPage, totalPages }) => {
-  const [inputVal, setInputVal] = useState<string>(currentPage);
+interface NavigateSectionProps {
+  currentPage: number;
+  totalPages: number;
+  onSelect: (chosenPage: number) => void;
+}
+const NavigateSection = ({
+  onSelect,
+  currentPage,
+  totalPages
+}: NavigateSectionProps) => {
+  const [inputVal, setInputVal] = useState<string>(currentPage.toString());
   const [focusInput, setFocusInput] = useState<boolean>(false);
 
   useEffect(() => {
@@ -116,21 +131,18 @@ const NavigateSection = ({ onSelect, currentPage, totalPages }) => {
   );
 };
 
-type SelectDirection = 'prev' | 'next' | 'first' | 'last';
-
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
   onSelect: (chosenPage: number) => void;
 }
-
 const Pagination = (props: PaginationProps) => {
   const { currentPage, totalPages } = props;
   const shouldShowLeftArrow = currentPage > 1;
   const shouldShowRightArrow = currentPage < totalPages;
 
   const onClickButtonArrow = (direction: SelectDirection) => {
-    let select: number;
+    let select: number = currentPage;
     switch (direction) {
       case 'next':
         select = currentPage + 1;
@@ -152,12 +164,12 @@ const Pagination = (props: PaginationProps) => {
     <div className={styles.container}>
       <div className={[styles.buttonGroup, styles.arrow1].join(' ')}>
         <ArrowContainer
-          available={shouldShowLeftArrow}
+          disabled={!shouldShowLeftArrow}
           direction={'first'}
           onClick={onClickButtonArrow}
         />
         <ArrowContainer
-          available={shouldShowLeftArrow}
+          disabled={!shouldShowLeftArrow}
           direction={'prev'}
           onClick={onClickButtonArrow}
         />
@@ -169,12 +181,12 @@ const Pagination = (props: PaginationProps) => {
       />
       <div className={[styles.buttonGroup, styles.arrow2].join(' ')}>
         <ArrowContainer
-          available={shouldShowRightArrow}
+          disabled={!shouldShowRightArrow}
           direction={'next'}
           onClick={onClickButtonArrow}
         />
         <ArrowContainer
-          available={shouldShowRightArrow}
+          disabled={!shouldShowRightArrow}
           direction={'last'}
           onClick={onClickButtonArrow}
         />

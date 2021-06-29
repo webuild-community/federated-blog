@@ -1,4 +1,4 @@
-import { getHostName } from './url';
+import { decodePostUrl, encodePostUrl, getHostName } from './url';
 
 describe('getHostName', () => {
   it('Should works with URLs started with https', () => {
@@ -27,5 +27,21 @@ describe('getHostName', () => {
     const actual = getHostName(url);
     const expected = 'example.com';
     expect(actual).toEqual(expected);
+  });
+});
+
+describe('URL encode and decode', () => {
+  it('Should encode and decode properly', () => {
+    const authorId = 52;
+    const postUrl = 'https://example.com/foo/bar/here.html';
+    const encoded = encodePostUrl(postUrl, authorId);
+    const decoded = decodePostUrl(encoded);
+    expect(decoded.author).toEqual(authorId);
+    expect(decoded.url).toEqual(postUrl);
+  });
+
+  it('Invalid payload should throw error', () => {
+    const encoded = 'blahblohfoobar';
+    expect(() => decodePostUrl(encoded)).toThrow('Invalid payload');
   });
 });

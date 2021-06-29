@@ -3,32 +3,41 @@ import { JSDOM } from 'jsdom';
 import createDOMPurify from 'dompurify';
 import { useRouter } from 'next/router';
 import { Button, DivPx } from '@moai/core';
-import { HiOutlineArrowLeft as LeftArrow } from 'react-icons/hi';
-import { HiOutlineExternalLink as externalLink } from 'react-icons/hi';
-import { fetchHtml } from '../utils/fetch';
-import { RoundedPanel } from '../components/RoundedPane';
-import Layout from '../components/Layout';
-import styles from '../styles/Read.module.css';
-import { GetStaticProps, GetStaticPaths, GetServerSideProps } from 'next';
+import {
+  HiOutlineArrowLeft as ArrowLeft,
+  HiOutlineExternalLink as ExternalLink
+} from 'react-icons/hi';
+import { fetchHtml } from '@/utils/fetch';
+import { RoundedPanel } from '@/components/RoundedPane';
+import Layout from '@/components/Layout';
+import styles from '@/styles/Read.module.css';
+import { GetServerSideProps } from 'next';
+import channelsData from '@/channels.json';
+import { EntryAuthor } from '@/components/Entry';
+import { decodePostUrl } from '@/utils/url';
+import { Author } from '@/types/sharedTypes';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const url = context.query.url as string;
+  const encoded = context.query.encoded as string;
+  const { author, url } = decodePostUrl(encoded);
   const htmlContent = await fetchHtml(url);
   const doc = new JSDOM(htmlContent, { url });
   const DOMPurify = createDOMPurify(doc.window as unknown as Window);
   const reader = new Readability(doc.window.document);
   const article = reader.parse();
+  const matchedAuthor = channelsData.channels[author];
+
   return {
     props: {
       article: {
         ...article,
-        // TODO: handle error Object is possibly 'null'
-        // @ts-ignore
-        content: DOMPurify.sanitize(article.content)
-      }
+        content: DOMPurify.sanitize(article?.content ?? '')
+      },
+      author: matchedAuthor
     }
   };
 };
+
 interface Article {
   title: string;
   // html content
@@ -36,8 +45,9 @@ interface Article {
 }
 interface ReadPageProps {
   article: Article;
+  author: Author;
 }
-const ReadPage = ({ article }: ReadPageProps) => {
+const ReadPage = ({ article, author }: ReadPageProps) => {
   const router = useRouter();
   const { url } = router.query;
 
@@ -53,21 +63,21 @@ const ReadPage = ({ article }: ReadPageProps) => {
     <Layout>
       <RoundedPanel>
         <div className={styles.topNavigationSection}>
-          <Button icon={LeftArrow} onClick={backButtonClickHandler}>
+          <Button icon={ArrowLeft} onClick={backButtonClickHandler}>
             Quay về trang chủ
           </Button>
           <Button
             iconRight
             highlight
-            icon={externalLink}
+            icon={ExternalLink}
             href={url as string}
             target="_blank"
           >
             Đọc trên blog của tác giả
           </Button>
         </div>
-        <DivPx size={16} />
-
+        <DivPx size={32} />
+        <EntryAuthor author={author} />
         <h1>{article.title}</h1>
         <div
           className="justify"
@@ -75,7 +85,7 @@ const ReadPage = ({ article }: ReadPageProps) => {
         />
 
         <DivPx size={16} />
-        <Button icon={LeftArrow} onClick={backButtonClickHandler}>
+        <Button icon={ArrowLeft} onClick={backButtonClickHandler}>
           Quay về trang chủ
         </Button>
       </RoundedPanel>
