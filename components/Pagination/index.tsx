@@ -7,7 +7,11 @@ import {
   HiOutlineChevronDoubleRight as LastIcon,
   HiOutlineCheck as CheckIcon
 } from 'react-icons/hi';
+import { RoundedPanel } from '../RoundedPane';
+
 import styles from './Pagination.module.css';
+
+type SelectDirection = 'prev' | 'next' | 'first' | 'last';
 
 const buttonArrowTypes = {
   prev: {
@@ -28,7 +32,12 @@ const buttonArrowTypes = {
   }
 };
 
-const ButtonArrow = ({ disabled, direction, onClick }) => {
+interface ButtonArrowProps {
+  disabled: boolean;
+  direction: SelectDirection;
+  onClick: (direction: SelectDirection) => void;
+}
+const ButtonArrow = ({ disabled, direction, onClick }: ButtonArrowProps) => {
   return (
     <Button
       disabled={disabled}
@@ -38,14 +47,13 @@ const ButtonArrow = ({ disabled, direction, onClick }) => {
     />
   );
 };
-
-const ArrowContainer = ({ available, direction, onClick }) => {
+const ArrowContainer = ({ disabled, direction, onClick }: ButtonArrowProps) => {
   return (
     <div className={styles.arrowContainer}>
       <ButtonArrow
         direction={direction}
         onClick={onClick}
-        disabled={!available}
+        disabled={disabled}
       />
     </div>
   );
@@ -68,8 +76,17 @@ const isValidPage = (
   return true;
 };
 
-const NavigateSection = ({ onSelect, currentPage, totalPages }) => {
-  const [inputVal, setInputVal] = useState<string>(currentPage);
+interface NavigateSectionProps {
+  currentPage: number;
+  totalPages: number;
+  onSelect: (chosenPage: number) => void;
+}
+const NavigateSection = ({
+  onSelect,
+  currentPage,
+  totalPages
+}: NavigateSectionProps) => {
+  const [inputVal, setInputVal] = useState<string>(currentPage.toString());
   const [focusInput, setFocusInput] = useState<boolean>(false);
 
   useEffect(() => {
@@ -116,21 +133,18 @@ const NavigateSection = ({ onSelect, currentPage, totalPages }) => {
   );
 };
 
-type SelectDirection = 'prev' | 'next' | 'first' | 'last';
-
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
   onSelect: (chosenPage: number) => void;
 }
-
 const Pagination = (props: PaginationProps) => {
   const { currentPage, totalPages } = props;
   const shouldShowLeftArrow = currentPage > 1;
   const shouldShowRightArrow = currentPage < totalPages;
 
   const onClickButtonArrow = (direction: SelectDirection) => {
-    let select: number;
+    let select: number = currentPage;
     switch (direction) {
       case 'next':
         select = currentPage + 1;
@@ -149,37 +163,39 @@ const Pagination = (props: PaginationProps) => {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={[styles.buttonGroup, styles.arrow1].join(' ')}>
-        <ArrowContainer
-          available={shouldShowLeftArrow}
-          direction={'first'}
-          onClick={onClickButtonArrow}
+    <RoundedPanel transparent={true}>
+      <div className={styles.container}>
+        <div className={[styles.buttonGroup, styles.arrow1].join(' ')}>
+          <ArrowContainer
+            disabled={!shouldShowLeftArrow}
+            direction={'first'}
+            onClick={onClickButtonArrow}
+          />
+          <ArrowContainer
+            disabled={!shouldShowLeftArrow}
+            direction={'prev'}
+            onClick={onClickButtonArrow}
+          />
+        </div>
+        <NavigateSection
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onSelect={props?.onSelect}
         />
-        <ArrowContainer
-          available={shouldShowLeftArrow}
-          direction={'prev'}
-          onClick={onClickButtonArrow}
-        />
+        <div className={[styles.buttonGroup, styles.arrow2].join(' ')}>
+          <ArrowContainer
+            disabled={!shouldShowRightArrow}
+            direction={'next'}
+            onClick={onClickButtonArrow}
+          />
+          <ArrowContainer
+            disabled={!shouldShowRightArrow}
+            direction={'last'}
+            onClick={onClickButtonArrow}
+          />
+        </div>
       </div>
-      <NavigateSection
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onSelect={props?.onSelect}
-      />
-      <div className={[styles.buttonGroup, styles.arrow2].join(' ')}>
-        <ArrowContainer
-          available={shouldShowRightArrow}
-          direction={'next'}
-          onClick={onClickButtonArrow}
-        />
-        <ArrowContainer
-          available={shouldShowRightArrow}
-          direction={'last'}
-          onClick={onClickButtonArrow}
-        />
-      </div>
-    </div>
+    </RoundedPanel>
   );
 };
 
