@@ -1,30 +1,22 @@
-import Image from 'next/image';
+import { ThemeProvider } from 'next-themes';
 import '@moai/core/dist/bundle.css';
 import '@moai/core/dist/font/remote.css';
-import '@/styles/globals.css';
-import '@/theme/theme.css';
-import '@/theme/theme';
-import Link from 'next/link';
 import { AppProps } from 'next/app';
+import '../styles/globals.css';
+import '../theme/theme.css';
+import '../theme/theme';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
-      <header>
-        <div className="header-content">
-          <Link href="/" passHref>
-            <a>
-              <Image
-                src="/weblog.svg"
-                alt="Webuild Blog Logo"
-                width="152"
-                height="36"
-              />
-            </a>
-          </Link>
-        </div>
-      </header>
-      <Component {...pageProps} />
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="light"
+        storageKey="theme"
+        themes={['light', 'dark']}
+      >
+        <Component {...pageProps} />
+      </ThemeProvider>
     </>
   );
 }

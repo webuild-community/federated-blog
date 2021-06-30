@@ -7,6 +7,8 @@ import {
   HiOutlineChevronDoubleRight as LastIcon,
   HiOutlineCheck as CheckIcon
 } from 'react-icons/hi';
+import { RoundedPanel } from '../RoundedPane';
+
 import styles from './Pagination.module.css';
 
 type SelectDirection = 'prev' | 'next' | 'first' | 'last';
@@ -161,37 +163,39 @@ const Pagination = (props: PaginationProps) => {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={[styles.buttonGroup, styles.arrow1].join(' ')}>
-        <ArrowContainer
-          disabled={!shouldShowLeftArrow}
-          direction={'first'}
-          onClick={onClickButtonArrow}
+    <RoundedPanel transparent={true}>
+      <div className={styles.container}>
+        <div className={[styles.buttonGroup, styles.arrow1].join(' ')}>
+          <ArrowContainer
+            disabled={!shouldShowLeftArrow}
+            direction={'first'}
+            onClick={onClickButtonArrow}
+          />
+          <ArrowContainer
+            disabled={!shouldShowLeftArrow}
+            direction={'prev'}
+            onClick={onClickButtonArrow}
+          />
+        </div>
+        <NavigateSection
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onSelect={props?.onSelect}
         />
-        <ArrowContainer
-          disabled={!shouldShowLeftArrow}
-          direction={'prev'}
-          onClick={onClickButtonArrow}
-        />
+        <div className={[styles.buttonGroup, styles.arrow2].join(' ')}>
+          <ArrowContainer
+            disabled={!shouldShowRightArrow}
+            direction={'next'}
+            onClick={onClickButtonArrow}
+          />
+          <ArrowContainer
+            disabled={!shouldShowRightArrow}
+            direction={'last'}
+            onClick={onClickButtonArrow}
+          />
+        </div>
       </div>
-      <NavigateSection
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onSelect={props?.onSelect}
-      />
-      <div className={[styles.buttonGroup, styles.arrow2].join(' ')}>
-        <ArrowContainer
-          disabled={!shouldShowRightArrow}
-          direction={'next'}
-          onClick={onClickButtonArrow}
-        />
-        <ArrowContainer
-          disabled={!shouldShowRightArrow}
-          direction={'last'}
-          onClick={onClickButtonArrow}
-        />
-      </div>
-    </div>
+    </RoundedPanel>
   );
 };
 

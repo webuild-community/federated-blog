@@ -1,6 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import styles from './Layout.module.css';
+import Header from '../Header';
 
 interface LayoutProps {
   title: string;
@@ -13,7 +14,7 @@ const Layout = ({ children, title }: LayoutProps) => {
         <title>{title}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
+      <Header />
       <main className={styles.main}>{children}</main>
     </div>
   );
