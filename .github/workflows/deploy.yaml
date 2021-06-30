@@ -1,6 +1,6 @@
 name: deploy
 on:
-  pull_request:
+  push:
     branches:
       - main
 jobs:
@@ -14,7 +14,5 @@ jobs:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.ORG_ID}}
           vercel-project-id: ${{ secrets.PROJECT_ID}}
-          github-comment: true
-      - name: preview-url
-        run: |
-          echo ${{ steps.vercel-action.outputs.preview-url }}
+          github-comment: false
+          vercel-args: '--prod'
