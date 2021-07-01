@@ -1,6 +1,5 @@
 import React from 'react';
-import { GetStaticPaths, GetStaticProps, NextPageContext } from 'next';
-import { useRouter } from 'next/router';
+import { GetStaticPaths, GetStaticProps } from 'next';
 import Parser from 'rss-parser';
 import { Entry } from '@/components/Entry';
 import Layout from '@/components/Layout';
