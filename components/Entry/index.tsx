@@ -49,9 +49,7 @@ export const Entry = ({ doc }: EntryProps) => {
         <a href={`/read/${encodedUrl}`}>{doc.title}</a>
       </h3>
       <p>Đăng ngày {formatDate(doc.pubDate as string)}</p>
-      <p className="justify">
-        {excerpt(minimumStringLength(doc.contentSnippet, 5), 50)}
-      </p>
+      <p>{excerpt(minimumStringLength(doc.contentSnippet, 5), 50)}</p>
       <div className={styles.readMoreArea}>
         <Link href={`/read/${encodedUrl}`} passHref>
           <Button highlight>Đọc tiếp</Button>
