@@ -40,9 +40,17 @@ export const getServerSideProps = async (context: NextPageContext) => {
     });
     cache.set('docs', docs);
   }
+  let pageCache = cache.get<Doc[]>(`docs-page-${page}`);
+  if (!pageCache) {
+    pageCache = docs.slice(
+      (pageNumber - 1) * PAGE_SIZE,
+      pageNumber * PAGE_SIZE
+    );
+    cache.set(`docs-page-${page}`, pageCache);
+  }
   return {
     props: {
-      docs: docs.slice((pageNumber - 1) * PAGE_SIZE, pageNumber * PAGE_SIZE),
+      docs: pageCache,
       page: pageNumber,
       totalPages: Math.ceil(docs.length / PAGE_SIZE)
     }
