@@ -1,5 +1,5 @@
 import React from 'react';
-import { NextPageContext } from 'next';
+import { GetStaticPaths, GetStaticProps, NextPageContext } from 'next';
 import { useRouter } from 'next/router';
 import Parser from 'rss-parser';
 import { Entry } from '@/components/Entry';
@@ -13,8 +13,15 @@ const CACHE_DURATION = 60 * 15; // 15 minutes cache
 const cache = new NodeCache({ stdTTL: CACHE_DURATION });
 const PAGE_SIZE = 20;
 
-export const getServerSideProps = async (context: NextPageContext) => {
-  const { page = '1' } = context.query;
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: [],
+    fallback: 'blocking'
+  };
+};
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  const { page = '1' } = context.params ?? {};
   const pageNumber = parseInt(page as string, 10);
   const parser = new Parser();
   let docs = cache.get<Doc[]>('docs');
@@ -49,6 +56,7 @@ export const getServerSideProps = async (context: NextPageContext) => {
     cache.set(`docs-page-${page}`, pageCache);
   }
   return {
+    revalidate: CACHE_DURATION,
     props: {
       docs: pageCache,
       page: pageNumber,
@@ -73,7 +81,7 @@ const Home = ({ docs, page, totalPages }: HomeProps) => {
         currentPage={page}
         totalPages={totalPages}
         onSelect={(page) => {
-          router.push(`/?page=${page}`);
+          router.push(`/page/${page}`);
         }}
       />
     </Layout>
