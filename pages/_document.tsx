@@ -30,25 +30,11 @@ class MyDocument extends Document {
             href="/favicon-16x16.png"
           />
           <link rel="manifest" href="/site.webmanifest" />
+          <script async src="https://cdn.splitbee.io/sb.js"></script>
         </Head>
         <body className="github-theme">
           <Main />
           <NextScript />
-          <script
-            async
-            src="https://www.googletagmanager.com/gtag/js?id=UA-177454778-1"
-          ></script>
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-
-            gtag('config', 'UA-177454778-1');
-          `
-            }}
-          ></script>
         </body>
       </Html>
     );
