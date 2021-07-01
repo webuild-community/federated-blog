@@ -9,7 +9,7 @@ import NodeCache from 'node-cache';
 import channelsData from '@/channels.json';
 import { Doc } from '@/types/sharedTypes';
 
-const CACHE_DURATION = 60 * 15; // 15 minutes cache
+const CACHE_DURATION = 60 * 60; // 1 hour cache
 const cache = new NodeCache({ stdTTL: CACHE_DURATION });
 const PAGE_SIZE = 20;
 
