@@ -71,7 +71,6 @@ interface HomeProps {
 }
 
 const Home = ({ docs, page, totalPages }: HomeProps) => {
-  const router = useRouter();
   return (
     <Layout>
       {docs.map((doc) => (
@@ -81,7 +80,7 @@ const Home = ({ docs, page, totalPages }: HomeProps) => {
         currentPage={page}
         totalPages={totalPages}
         onSelect={(page) => {
-          router.push(`/page/${page}`);
+          window.location.href = `/page/${page}`;
         }}
       />
     </Layout>
