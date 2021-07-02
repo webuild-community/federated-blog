@@ -30,7 +30,6 @@ class MyDocument extends Document {
             href="/favicon-16x16.png"
           />
           <link rel="manifest" href="/site.webmanifest" />
-          <script async src="https://cdn.splitbee.io/sb.js"></script>
         </Head>
         <body className="github-theme">
           <Main />
