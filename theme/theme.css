@@ -327,6 +327,10 @@
   color: #6a737d !important;
 }
 
+.github-theme .mt-0 {
+  margin-top: 0 !important;
+}
+
 .github-theme .mb-0 {
   margin-bottom: 0 !important;
 }

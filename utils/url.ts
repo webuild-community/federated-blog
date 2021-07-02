@@ -1,5 +1,11 @@
 import base64 from 'base-64';
 
+// TODO: Write test for getAvatarUrl
+const DEFAULT_AVATAR = 'kaonashi.jpg';
+export const getAvatarUrl = (file_name: string): string => {
+  return `/avatars/${file_name || DEFAULT_AVATAR}`;
+};
+
 export const getHostName = (url: string): string => {
   const [host, _] = url.replace(/https?:\/\//, '').split('/');
   return host;
