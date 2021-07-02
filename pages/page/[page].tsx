@@ -1,6 +1,5 @@
 import React from 'react';
-import { NextPageContext } from 'next';
-import { useRouter } from 'next/router';
+import { GetStaticPaths, GetStaticProps } from 'next';
 import Parser from 'rss-parser';
 import { Entry } from '@/components/Entry';
 import Layout from '@/components/Layout';
@@ -9,12 +8,19 @@ import NodeCache from 'node-cache';
 import channelsData from '@/channels.json';
 import { Doc } from '@/types/sharedTypes';
 
-const CACHE_DURATION = 60 * 15; // 15 minutes cache
+const CACHE_DURATION = 60 * 60; // 1 hour cache
 const cache = new NodeCache({ stdTTL: CACHE_DURATION });
 const PAGE_SIZE = 20;
 
-export const getServerSideProps = async (context: NextPageContext) => {
-  const { page = '1' } = context.query;
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: [],
+    fallback: 'blocking'
+  };
+};
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  const { page = '1' } = context.params ?? {};
   const pageNumber = parseInt(page as string, 10);
   const parser = new Parser();
   let docs = cache.get<Doc[]>('docs');
@@ -40,9 +46,18 @@ export const getServerSideProps = async (context: NextPageContext) => {
     });
     cache.set('docs', docs);
   }
+  let pageCache = cache.get<Doc[]>(`docs-page-${page}`);
+  if (!pageCache) {
+    pageCache = docs.slice(
+      (pageNumber - 1) * PAGE_SIZE,
+      pageNumber * PAGE_SIZE
+    );
+    cache.set(`docs-page-${page}`, pageCache);
+  }
   return {
+    revalidate: CACHE_DURATION,
     props: {
-      docs: docs.slice((pageNumber - 1) * PAGE_SIZE, pageNumber * PAGE_SIZE),
+      docs: pageCache,
       page: pageNumber,
       totalPages: Math.ceil(docs.length / PAGE_SIZE)
     }
@@ -55,7 +70,6 @@ interface HomeProps {
 }
 
 const Home = ({ docs, page, totalPages }: HomeProps) => {
-  const router = useRouter();
   return (
     <Layout>
       {docs.map((doc) => (
@@ -65,7 +79,7 @@ const Home = ({ docs, page, totalPages }: HomeProps) => {
         currentPage={page}
         totalPages={totalPages}
         onSelect={(page) => {
-          router.push(`/?page=${page}`);
+          window.location.href = `/page/${page}`;
         }}
       />
     </Layout>

@@ -11,14 +11,17 @@ import { fetchHtml } from '@/utils/fetch';
 import { RoundedPanel } from '@/components/RoundedPane';
 import Layout from '@/components/Layout';
 import styles from '@/styles/Read.module.css';
-import { GetServerSideProps } from 'next';
+import { GetStaticPaths, GetStaticProps } from 'next';
 import channelsData from '@/channels.json';
 import { EntryAuthor } from '@/components/Entry';
 import { decodePostUrl } from '@/utils/url';
 import { Author } from '@/types/sharedTypes';
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const encoded = context.query.encoded as string;
+const CONTENT_PAGE_CACHE_TIME = 60 * 60 * 2; // 2 days
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  const params = context.params ?? {};
+  const encoded = params?.encoded as string;
   const { author, url } = decodePostUrl(encoded);
   const htmlContent = await fetchHtml(url);
   const doc = new JSDOM(htmlContent, { url });
@@ -28,6 +31,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const matchedAuthor = channelsData.channels[author];
 
   return {
+    revalidate: CONTENT_PAGE_CACHE_TIME,
     props: {
       article: {
         ...article,
@@ -35,6 +39,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       },
       author: matchedAuthor
     }
+  };
+};
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: [],
+    fallback: 'blocking'
   };
 };
 
@@ -79,10 +90,7 @@ const ReadPage = ({ article, author }: ReadPageProps) => {
         <DivPx size={32} />
         <EntryAuthor author={author} />
         <h1>{article.title}</h1>
-        <div
-          className="justify"
-          dangerouslySetInnerHTML={{ __html: article.content }}
-        />
+        <div dangerouslySetInnerHTML={{ __html: article.content }} />
 
         <DivPx size={16} />
         <Button icon={ArrowLeft} onClick={backButtonClickHandler}>
