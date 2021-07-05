@@ -7,6 +7,7 @@ import Pagination from '@/components/Pagination';
 import NodeCache from 'node-cache';
 import channelsData from '@/channels.json';
 import { Doc } from '@/types/sharedTypes';
+import MaxHeap from '@/utils/MaxHeap';
 
 const CACHE_DURATION = 60 * 60; // 1 hour cache
 const cache = new NodeCache({ stdTTL: CACHE_DURATION });
@@ -25,25 +26,42 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const parser = new Parser();
   let docs = cache.get<Doc[]>('docs');
   if (!docs) {
-    docs = (
-      await Promise.all(
-        channelsData.channels.map(async (channel, channelIndex) => {
-          const result = await parser.parseURL(channel.url);
-          return (
-            result?.items.map((item) => ({
-              ...item,
-              author: channel,
-              authorId: channelIndex
-            })) ?? []
-          );
-        })
-      )
-    ).flat();
-    docs.sort((a, b) => {
-      let da = new Date(b.pubDate as string);
-      let db = new Date(a.pubDate as string);
-      return +da - +db;
+    docs = [];
+    const docsArray: Array<Doc[]> = await Promise.all(
+      channelsData.channels.map(async (channel, channelIndex) => {
+        const result = await parser.parseURL(channel.url);
+        return (
+          result?.items.map((item) => ({
+            ...item,
+            author: channel,
+            authorId: channelIndex
+          })) ?? []
+        );
+      })
+    );
+    const maxHeap = new MaxHeap<[Doc, number, number]>((node1, node2) => {
+      let dateNode1 = new Date(node1[0].pubDate as string);
+      let dateNode2 = new Date(node2[0].pubDate as string);
+      if (dateNode1 > dateNode2) {
+        return 1;
+      }
+      if (dateNode1 == dateNode2) {
+        return 0;
+      }
+      return -1;
     });
+    for (let i = 0; i < docsArray.length; i++) {
+      if (docsArray[i].length > 0) {
+        maxHeap.push([docsArray[i][0], i, 0]);
+      }
+    }
+    while (maxHeap.length > 0) {
+      const pop = maxHeap.pop() as [Doc, number, number];
+      docs.push(pop[0]);
+      if (pop[2] !== docsArray[pop[1]].length - 1) {
+        maxHeap.push([docsArray[pop[1]][pop[2] + 1], pop[1], pop[2] + 1]);
+      }
+    }
     cache.set('docs', docs);
   }
   let pageCache = cache.get<Doc[]>(`docs-page-${page}`);
