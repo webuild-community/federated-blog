@@ -1,4 +1,4 @@
-export default class MaxHeap<T> {
+class MaxHeap<T> {
   private heap: T[];
   private compare: (node1: T, node2: T) => 1 | -1 | 0;
   /**
@@ -14,12 +14,12 @@ export default class MaxHeap<T> {
     return this.heap.length;
   }
 
-  public peek() {
+  public peek(): T | undefined {
     if (this.length > 0) return this.heap[0];
     else return undefined;
   }
 
-  public push(node: T) {
+  public push(node: T): void {
     this.heap.push(node);
     this.bubbleUp();
   }
@@ -37,7 +37,7 @@ export default class MaxHeap<T> {
     return pop;
   }
 
-  private bubbleUp() {
+  private bubbleUp(): void {
     let current = this.length - 1;
     while (current > 0) {
       let parent = Math.ceil(current / 2) - 1;
@@ -53,7 +53,7 @@ export default class MaxHeap<T> {
     }
   }
 
-  private bubbleDown() {
+  private bubbleDown(): void {
     let current = 0;
     while (true) {
       let left = current * 2 + 1;
@@ -78,3 +78,5 @@ export default class MaxHeap<T> {
     }
   }
 }
+
+export { MaxHeap as default };

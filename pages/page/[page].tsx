@@ -9,6 +9,8 @@ import channelsData from '@/channels.json';
 import { Doc } from '@/types/sharedTypes';
 import MaxHeap from '@/utils/MaxHeap';
 
+type HeapNode = [Doc, number, number];
+
 const CACHE_DURATION = 60 * 60; // 1 hour cache
 const cache = new NodeCache({ stdTTL: CACHE_DURATION });
 const PAGE_SIZE = 20;
@@ -39,7 +41,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
         );
       })
     );
-    const maxHeap = new MaxHeap<[Doc, number, number]>((node1, node2) => {
+    const maxHeap = new MaxHeap<HeapNode>((node1, node2) => {
       let dateNode1 = new Date(node1[0].pubDate as string);
       let dateNode2 = new Date(node2[0].pubDate as string);
       if (dateNode1 > dateNode2) {
@@ -56,7 +58,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       }
     }
     while (maxHeap.length > 0) {
-      const pop = maxHeap.pop() as [Doc, number, number];
+      const pop = maxHeap.pop() as HeapNode;
       docs.push(pop[0]);
       if (pop[2] !== docsArray[pop[1]].length - 1) {
         maxHeap.push([docsArray[pop[1]][pop[2] + 1], pop[1], pop[2] + 1]);
