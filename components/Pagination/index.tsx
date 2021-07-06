@@ -87,7 +87,8 @@ const NavigateSection = ({
   totalPages
 }: NavigateSectionProps) => {
   const [inputVal, setInputVal] = useState<string>(currentPage.toString());
-  const [focusInput, setFocusInput] = useState<boolean>(false);
+  const [focus, setFocus] = useState<boolean>(false);
+  const [mouseOn, setMouseOn] = useState<boolean>(false);
 
   useEffect(() => {
     setInputVal(String(currentPage));
@@ -108,14 +109,19 @@ const NavigateSection = ({
     }
   };
   const allowSwitchPage =
-    focusInput && isValidPage(Number(inputVal.trim()), totalPages, currentPage);
+    (mouseOn || focus) &&
+    isValidPage(Number(inputVal.trim()), totalPages, currentPage);
   return (
-    <div className={styles.navigateSection}>
+    <div
+      className={styles.navigateSection}
+      onMouseEnter={() => setMouseOn(true)}
+      onMouseLeave={() => setMouseOn(false)}
+      onFocus={() => setFocus(true)}
+      onBlur={() => setFocus(false)}
+    >
       <b>Trang</b>
       <div className={styles.inputContainer}>
         <Input
-          onFocus={() => setFocusInput(true)}
-          onBlur={() => setFocusInput(false)}
           value={inputVal}
           setValue={setInputVal}
           onKeyDown={onKeyDownHandler}

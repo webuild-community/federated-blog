@@ -35,6 +35,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     props: {
       article: {
         ...article,
+        link: url,
         content: DOMPurify.sanitize(article?.content ?? '')
       },
       author: matchedAuthor
@@ -53,6 +54,8 @@ interface Article {
   title: string;
   // html content
   content: string;
+  // original link
+  link: string;
 }
 interface ReadPageProps {
   article: Article;
@@ -60,7 +63,6 @@ interface ReadPageProps {
 }
 const ReadPage = ({ article, author }: ReadPageProps) => {
   const router = useRouter();
-  const { url } = router.query;
 
   const backButtonClickHandler = () => {
     if (window.history.length > 1) {
@@ -81,7 +83,7 @@ const ReadPage = ({ article, author }: ReadPageProps) => {
             iconRight
             highlight
             icon={ExternalLink}
-            href={url as string}
+            href={article.link}
             target="_blank"
           >
             Đọc trên blog của tác giả
