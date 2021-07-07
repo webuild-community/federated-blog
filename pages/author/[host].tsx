@@ -60,7 +60,7 @@ interface HomeProps {
 
 const AuthorPage = ({ docs, author }: HomeProps) => {
   const rssLinkDisplay = author?.url.replace(/https?:\/\//, '');
-  const blogLink = `https://${getHostName(author.url)}`;
+  const blogLink = author ? `https://${getHostName(author.url)}` : '';
   return author ? (
     <Layout>
       <div className={styles.bigAssProfile}>
