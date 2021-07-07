@@ -1,0 +1,18 @@
+.header {
+  background-color: var(--background-strong);
+  color: var(--text-normal);
+}
+
+.header .headerContent {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: var(--spacing-base) var(--spacing-container);
+  display: flex;
+  justify-content: space-between;
+}
+
+.header .headerContent svg {
+  height: 36px;
+  width: 152px;
+  background-color: transparent;
+}
