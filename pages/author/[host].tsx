@@ -8,6 +8,9 @@ import { Author, Doc } from '@/types/sharedTypes';
 import { getAvatarUrl, getHostName } from '@/utils/url';
 import { Entry } from '@/components/Entry';
 import Link from 'next/link';
+import styles from './Author.module.css';
+import { HiOutlineLink, HiOutlineRss, HiOutlineDocument } from 'react-icons/hi';
+import { Icon } from '@moai/core';
 
 const CACHE_DURATION = 60 * 60; // 1 hour cache
 
@@ -56,23 +59,12 @@ interface HomeProps {
 }
 
 const AuthorPage = ({ docs, author }: HomeProps) => {
+  const rssLinkDisplay = author?.url.replace(/https?:\/\//, '');
+  const blogLink = `https://${getHostName(author.url)}`;
   return author ? (
     <Layout>
-      <div
-        className="big-ass-profile"
-        style={{
-          display: 'grid',
-          gridTemplateAreas: `
-          'avatar name'
-          'avatar url'
-        `
-        }}
-      >
-        <div
-          style={{
-            gridArea: 'avatar'
-          }}
-        >
+      <div className={styles.bigAssProfile}>
+        <div className={styles.avatarContainer}>
           <Image
             alt={author.name}
             src={getAvatarUrl(author.avatar_url)}
@@ -80,10 +72,22 @@ const AuthorPage = ({ docs, author }: HomeProps) => {
             height={120}
           />
         </div>
-        <h2 style={{ gridArea: 'name' }}>{author.name}</h2>
-        <Link href={author.url}>
-          <a style={{ gridArea: 'url' }}>{getHostName(author.url)}</a>
-        </Link>
+        <h2 className={styles.bigAssProfile_Name}>{author.name}</h2>
+        <div className={styles.profileDetails}>
+          <Link href={blogLink} passHref>
+            <a className={styles.profileLink}>
+              <Icon component={HiOutlineLink} /> {getHostName(author.url)}
+            </a>
+          </Link>
+          <Link href={author.url} passHref>
+            <a className={styles.profileLink}>
+              <Icon component={HiOutlineRss} /> {rssLinkDisplay}
+            </a>
+          </Link>
+          <div className={styles.profileLink}>
+            <Icon component={HiOutlineDocument} /> {docs.length} bài viết
+          </div>
+        </div>
       </div>
       {docs.map((doc) => (
         <Entry doc={doc} key={doc.link} showAuthor={false} />
