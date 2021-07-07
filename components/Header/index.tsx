@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Logo from './logo';
 import { Button } from '@moai/core';
 import { HiOutlineMoon, HiOutlineSun } from 'react-icons/hi';
+import styles from './Header.module.css';
 
 const Header = () => {
   const [mounted, setMounted] = useState(false);
@@ -18,8 +19,8 @@ const Header = () => {
   if (!mounted) return null;
 
   return (
-    <header>
-      <div className="header-content">
+    <header className={styles.header}>
+      <div className={styles.headerContent}>
         <Link href="/" passHref>
           <a>
             <Logo />
