@@ -30,7 +30,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const author = channelsData.channels[authorId] ?? null;
   let docs: Doc[] = [];
   if (author) {
-    const author = channelsData.channels[authorId];
     const result = await parser.parseURL(author.url);
     docs =
       result?.items.map((item) => ({
@@ -43,25 +42,30 @@ export const getStaticProps: GetStaticProps = async (context) => {
       let db = new Date(a.pubDate as string);
       return +da - +db;
     });
+
+    return {
+      revalidate: CACHE_DURATION,
+      props: {
+        docs,
+        author
+      }
+    };
   }
 
   return {
-    revalidate: CACHE_DURATION,
-    props: {
-      docs,
-      author
-    }
+    notFound: true
   };
 };
+
 interface HomeProps {
   docs: Doc[];
-  author?: Author;
+  author: Author;
 }
 
 const AuthorPage = ({ docs, author }: HomeProps) => {
-  const rssLinkDisplay = author?.url.replace(/https?:\/\//, '');
+  const rssLinkDisplay = author.url.replace(/https?:\/\//, '');
   const blogLink = author ? `https://${getHostName(author.url)}` : '';
-  return author ? (
+  return (
     <Layout>
       <div className={styles.bigAssProfile}>
         <div className={styles.avatarContainer}>
@@ -93,8 +97,6 @@ const AuthorPage = ({ docs, author }: HomeProps) => {
         <Entry doc={doc} key={doc.link} showAuthor={false} />
       ))}
     </Layout>
-  ) : (
-    <Layout>Content not found</Layout>
   );
 };
 

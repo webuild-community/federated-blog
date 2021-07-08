@@ -46,6 +46,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     });
     cache.set('docs', docs);
   }
+
   let pageCache = cache.get<Doc[]>(`docs-page-${page}`);
   if (!pageCache) {
     pageCache = docs.slice(
@@ -54,12 +55,19 @@ export const getStaticProps: GetStaticProps = async (context) => {
     );
     cache.set(`docs-page-${page}`, pageCache);
   }
+
+  const totalPages = Math.ceil(docs.length / PAGE_SIZE);
+  if (pageCache.length <= 0 || pageNumber > totalPages) {
+    return {
+      notFound: true
+    };
+  }
   return {
     revalidate: CACHE_DURATION,
     props: {
       docs: pageCache,
       page: pageNumber,
-      totalPages: Math.ceil(docs.length / PAGE_SIZE)
+      totalPages: totalPages
     }
   };
 };

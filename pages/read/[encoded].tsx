@@ -20,27 +20,34 @@ import { Author } from '@/types/sharedTypes';
 const CONTENT_PAGE_CACHE_TIME = 60 * 60 * 2; // 2 days
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const params = context.params ?? {};
-  const encoded = params?.encoded as string;
-  const { author, url } = decodePostUrl(encoded);
-  const htmlContent = await fetchHtml(url);
-  const doc = new JSDOM(htmlContent, { url });
-  const DOMPurify = createDOMPurify(doc.window as unknown as Window);
-  const reader = new Readability(doc.window.document);
-  const article = reader.parse();
-  const matchedAuthor = channelsData.channels[author];
+  try {
+    const params = context.params ?? {};
+    const encoded = params?.encoded as string;
+    const { author, url } = decodePostUrl(encoded);
+    const htmlContent = await fetchHtml(url);
+    const doc = new JSDOM(htmlContent, { url });
+    const DOMPurify = createDOMPurify(doc.window as unknown as Window);
+    const reader = new Readability(doc.window.document);
+    const article = reader.parse();
+    const matchedAuthor = channelsData.channels[author];
 
-  return {
-    revalidate: CONTENT_PAGE_CACHE_TIME,
-    props: {
-      article: {
-        ...article,
-        link: url,
-        content: DOMPurify.sanitize(article?.content ?? '')
-      },
-      author: matchedAuthor
-    }
-  };
+    return {
+      revalidate: CONTENT_PAGE_CACHE_TIME,
+      props: {
+        article: {
+          ...article,
+          link: url,
+          content: DOMPurify.sanitize(article?.content ?? '')
+        },
+        author: matchedAuthor
+      }
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      notFound: true
+    };
+  }
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
