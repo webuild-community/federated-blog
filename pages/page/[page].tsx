@@ -52,16 +52,20 @@ export const getStaticProps: GetStaticProps = async (context) => {
       }
       return -1;
     });
-    for (let i = 0; i < docsArray.length; i++) {
-      if (docsArray[i].length > 0) {
-        maxHeap.push([docsArray[i][0], i, 0]);
+    for (let channel = 0; channel < docsArray.length; channel++) {
+      if (docsArray[channel].length > 0) {
+        maxHeap.push([docsArray[channel][0], channel, 0]);
       }
     }
     while (maxHeap.length > 0) {
-      const pop = maxHeap.pop() as HeapNode;
-      docs.push(pop[0]);
-      if (pop[2] !== docsArray[pop[1]].length - 1) {
-        maxHeap.push([docsArray[pop[1]][pop[2] + 1], pop[1], pop[2] + 1]);
+      const [bePushedDoc, channel, indexOnChannel] = maxHeap.pop() as HeapNode;
+      docs.push(bePushedDoc);
+      if (indexOnChannel !== docsArray[channel].length - 1) {
+        maxHeap.push([
+          docsArray[channel][indexOnChannel + 1],
+          channel,
+          indexOnChannel + 1
+        ]);
       }
     }
     cache.set('docs', docs);
