@@ -1,4 +1,4 @@
-import { decodePostUrl, encodePostUrl, getHostName } from './url';
+import { decodePostUrl, encodePostUrl, getAvatarUrl, getHostName } from './url';
 
 describe('getHostName', () => {
   it('Should works with URLs started with https', () => {
@@ -43,5 +43,32 @@ describe('URL encode and decode', () => {
   it('Invalid payload should throw error', () => {
     const encoded = 'blahblohfoobar';
     expect(() => decodePostUrl(encoded)).toThrow('Invalid payload');
+  });
+});
+
+describe('getAvatarUrl', () => {
+  it('Should show default avatar if file_name is empty', () => {
+    const actual = getAvatarUrl('');
+    expect(actual).toBe('/avatars/kaonashi.jpg');
+  });
+
+  it('Should show default avatar if file_name is undefined', () => {
+    const actual = getAvatarUrl();
+    expect(actual).toBe('/avatars/kaonashi.jpg');
+  });
+
+  it('Should show default avatar if file_name is null', () => {
+    const actual = getAvatarUrl(null);
+    expect(actual).toBe('/avatars/kaonashi.jpg');
+  });
+
+  it('Should show correct avatar if file_name is something valid', () => {
+    const actual = getAvatarUrl('tlinh.png');
+    expect(actual).toBe('/avatars/tlinh.png');
+  });
+
+  it('Should show default avatar if file_name is an URL', () => {
+    const actual = getAvatarUrl('https://foo.bar.com/image/something.jpg');
+    expect(actual).toBe('/avatars/kaonashi.jpg');
   });
 });

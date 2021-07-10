@@ -1,0 +1,36 @@
+.bigAssProfile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem 0;
+}
+
+.bigAssProfile h2 {
+  padding: 0;
+  margin: 10px 0;
+  border: none;
+}
+
+.avatarContainer {
+  width: 128px;
+  height: 128px;
+  border-radius: 60px;
+  overflow: hidden;
+  border: 4px solid #fff;
+  box-shadow: var(--shadow-1);
+}
+
+.profileDetails {
+  display: flex;
+}
+
+.profileLink {
+  display: flex;
+  align-items: baseline;
+  margin: 0 10px;
+}
+
+.profileLink svg {
+  margin-right: 5px;
+}

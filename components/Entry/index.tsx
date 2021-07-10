@@ -3,14 +3,12 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@moai/core';
 import { HiOutlineExternalLink as externalLink } from 'react-icons/hi';
-import { encodePostUrl, getHostName } from '@/utils/url';
+import { encodePostUrl, getAvatarUrl, getHostName } from '@/utils/url';
 import { excerpt, minimum as minimumStringLength } from '@/utils/string';
 import { formatDate } from '@/utils/date';
 import { RoundedPanel } from '../RoundedPane';
 import styles from './Entry.module.css';
 import { Author, Doc } from '../../types/sharedTypes';
-
-const DEFAULT_AVATAR = 'kaonashi.jpg';
 
 interface EntryAuthorProps {
   author: Author;
@@ -19,14 +17,22 @@ export const EntryAuthor = ({ author }: EntryAuthorProps) => {
   const { name, avatar_url, url } = author;
   const hostName = getHostName(url);
   const blogUrl = `https://${hostName}`;
-  const avatar = `/avatars/${avatar_url || DEFAULT_AVATAR}`;
   return (
     <div className={styles.entryAuthor}>
       <div className={styles.entryAvatar}>
-        <Image alt={name} src={avatar} width={48} height={48} />
+        <Image
+          alt={name}
+          src={getAvatarUrl(avatar_url)}
+          width={48}
+          height={48}
+        />
       </div>
       <div className="info">
-        <b>{name}</b>
+        <Link href={`/author/${hostName}`} passHref>
+          <a>
+            <b>{name}</b>
+          </a>
+        </Link>
         <div>
           <Link href={blogUrl}>
             <a>{hostName}</a>
@@ -39,13 +45,14 @@ export const EntryAuthor = ({ author }: EntryAuthorProps) => {
 
 export interface EntryProps {
   doc: Doc;
+  showAuthor?: boolean;
 }
-export const Entry = ({ doc }: EntryProps) => {
+export const Entry = ({ doc, showAuthor = true }: EntryProps) => {
   const encodedUrl = encodePostUrl(doc.link as string, doc.authorId);
   return (
     <RoundedPanel>
-      <EntryAuthor author={doc.author} />
-      <h3 className="entry-title">
+      {showAuthor && <EntryAuthor author={doc.author} />}
+      <h3 className="entry-title mt-0">
         <a href={`/read/${encodedUrl}`}>{doc.title}</a>
       </h3>
       <p>Đăng ngày {formatDate(doc.pubDate as string)}</p>
