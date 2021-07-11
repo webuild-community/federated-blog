@@ -18,7 +18,7 @@
     }
   },
   "dependencies": {
-    "@moai/core": "^1.1.0",
+    "@moai/core": "^1.2.0",
     "@mozilla/readability": "^0.4.1",
     "base-64": "^1.0.0",
     "dompurify": "^2.2.9",

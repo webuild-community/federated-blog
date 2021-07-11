@@ -648,10 +648,10 @@
     "@types/yargs" "^16.0.0"
     chalk "^4.0.0"
 
-"@moai/core@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@moai/core/-/core-1.1.0.tgz#3e6c7ce716ba9ed4681ea965187afed6c432f507"
-  integrity sha512-DkaoDVgBL9cySAQeSCJLJuuIOa+rrAfMlD7cYuq48fMWNSXbQtf/yw5auBLC4p/75IgHkK+cwgbJ/w2EX4ywcA==
+"@moai/core@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@moai/core/-/core-1.2.0.tgz#96fa36db5b1e972ef672c2c2499e4ff4af4a52ac"
+  integrity sha512-VtO9SoXBskRq7q22eHS9x7V3a4J5zXO/nduXNeR4fBuRPOl4T6M3WpOjnDO6l+lSy/nbMLLskklJZSCNlSQ2nQ==
   dependencies:
     "@popperjs/core" "^2.9.2"
     "@tippyjs/react" "^4.2.5"
