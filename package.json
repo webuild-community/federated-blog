@@ -49,7 +49,7 @@
   "lint-staged": {
     "*.{ts,tsx}": [
       "organize-imports-cli",
-      "prettier --write "
+      "prettier --write"
     ],
     "**/*": [
       "prettier --write --ignore-unknown"
