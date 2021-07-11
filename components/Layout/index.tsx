@@ -1,5 +1,5 @@
-import React from 'react';
 import Head from 'next/head';
+import React from 'react';
 import styles from './Layout.module.css';
 import Header from '../Header';
 
