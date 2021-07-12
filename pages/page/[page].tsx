@@ -1,13 +1,13 @@
-import React from 'react';
-import { GetStaticPaths, GetStaticProps } from 'next';
-import Parser from 'rss-parser';
+import channelsData from '@/channels.json';
 import { Entry } from '@/components/Entry';
 import Layout from '@/components/Layout';
 import Pagination from '@/components/Pagination';
-import NodeCache from 'node-cache';
-import channelsData from '@/channels.json';
 import { Doc } from '@/types/sharedTypes';
 import MaxHeap from '@/utils/MaxHeap';
+import { GetStaticPaths, GetStaticProps } from 'next';
+import NodeCache from 'node-cache';
+import React from 'react';
+import Parser from 'rss-parser';
 
 type HeapNode = [Doc, number, number];
 
@@ -31,14 +31,20 @@ export const getStaticProps: GetStaticProps = async (context) => {
     docs = [];
     const docsArray: Array<Doc[]> = await Promise.all(
       channelsData.channels.map(async (channel, channelIndex) => {
-        const result = await parser.parseURL(channel.url);
-        return (
-          result?.items.map((item) => ({
-            ...item,
-            author: channel,
-            authorId: channelIndex
-          })) ?? []
-        );
+        try {
+          const result = await parser.parseURL(channel.url);
+          return (
+            result?.items.map((item) => ({
+              ...item,
+              author: channel,
+              authorId: channelIndex
+            })) ?? []
+          );
+        } catch (error) {
+          console.error('Error reading blog:', channel.url);
+          console.error(error);
+          return [];
+        }
       })
     );
     const maxHeap = new MaxHeap<HeapNode>((node1, node2) => {
