@@ -1,3 +1,6 @@
+@import '@moai/core/dist/bundle.css';
+@import '@moai/core/dist/font/remote.css';
+
 :root {
   --highlight-0: #e1f7e6;
   --highlight-1: #a1e5b6;
