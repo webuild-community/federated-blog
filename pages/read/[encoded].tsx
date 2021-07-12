@@ -1,23 +1,23 @@
-import { Readability } from '@mozilla/readability';
-import { JSDOM } from 'jsdom';
-import createDOMPurify from 'dompurify';
-import { useRouter } from 'next/router';
+import channelsData from '@/channels.json';
+import { EntryAuthor } from '@/components/Entry';
+import Layout from '@/components/Layout';
+import { RoundedPanel } from '@/components/RoundedPane';
+import styles from '@/styles/Read.module.css';
+import { Author } from '@/types/sharedTypes';
+import { fetchHtml } from '@/utils/fetch';
+import { decodePostUrl } from '@/utils/url';
 import { Button, DivPx } from '@moai/core';
+import { Readability } from '@mozilla/readability';
+import createDOMPurify from 'dompurify';
+import { JSDOM } from 'jsdom';
+import { GetStaticPaths, GetStaticProps } from 'next';
+import { useRouter } from 'next/router';
 import {
   HiOutlineArrowLeft as ArrowLeft,
   HiOutlineExternalLink as ExternalLink
 } from 'react-icons/hi';
-import { fetchHtml } from '@/utils/fetch';
-import { RoundedPanel } from '@/components/RoundedPane';
-import Layout from '@/components/Layout';
-import styles from '@/styles/Read.module.css';
-import { GetStaticPaths, GetStaticProps } from 'next';
-import channelsData from '@/channels.json';
-import { EntryAuthor } from '@/components/Entry';
-import { decodePostUrl } from '@/utils/url';
-import { Author } from '@/types/sharedTypes';
 
-const CONTENT_PAGE_CACHE_TIME = 60 * 60 * 2; // 2 days
+const CONTENT_PAGE_CACHE_TIME = 60 * 60 * 24 * 7; // 7 days
 
 export const getStaticProps: GetStaticProps = async (context) => {
   try {
