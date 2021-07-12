@@ -1,8 +1,6 @@
 import '@/styles/globals.css';
 import '@/theme/theme';
 import '@/theme/theme.css';
-import '@moai/core/dist/bundle.css';
-import '@moai/core/dist/font/remote.css';
 import PlausibleProvider from 'next-plausible';
 import { ThemeProvider } from 'next-themes';
 import { AppProps } from 'next/app';
