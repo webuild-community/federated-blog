@@ -16,3 +16,11 @@
   width: 152px;
   background-color: transparent;
 }
+
+.header .headerNav {
+  display: flex;
+}
+
+.header .headerNav > * {
+  margin-left: 10px;
+}

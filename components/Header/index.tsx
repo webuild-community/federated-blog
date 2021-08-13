@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { Button } from '@moai/core';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
-import Logo from './logo';
-import { Button } from '@moai/core';
+import React, { useEffect, useState } from 'react';
 import { HiOutlineMoon, HiOutlineSun } from 'react-icons/hi';
 import styles from './Header.module.css';
+import Logo from './logo';
 
 const Header = () => {
   const [mounted, setMounted] = useState(false);
@@ -26,13 +26,18 @@ const Header = () => {
             <Logo />
           </a>
         </Link>
-        <Button
-          onClick={onToggleTheme}
-          icon={theme === 'light' ? HiOutlineMoon : HiOutlineSun}
-          iconLabel={
-            theme === 'light' ? 'Bật chế độ ban đêm' : 'Bật chế độ ban ngày'
-          }
-        />
+        <div className={styles.headerNav}>
+          <Link href="/page/random" passHref>
+            <Button>Đọc ngẫu nhiên</Button>
+          </Link>
+          <Button
+            onClick={onToggleTheme}
+            icon={theme === 'light' ? HiOutlineMoon : HiOutlineSun}
+            iconLabel={
+              theme === 'light' ? 'Bật chế độ ban đêm' : 'Bật chế độ ban ngày'
+            }
+          />
+        </div>
       </div>
     </header>
   );
