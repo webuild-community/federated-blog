@@ -7,6 +7,7 @@
 }
 
 .bigAssProfile h2 {
+  color: var(--text-normal);
   padding: 0;
   margin: 10px 0;
   border: none;
@@ -22,6 +23,7 @@
 }
 
 .profileDetails {
+  color: var(--text-normal);
   display: flex;
 }
 
