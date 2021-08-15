@@ -94,6 +94,11 @@
       "name": "Tuan Anh (Leo)",
       "avatar_url": "leohuynh.jpg",
       "url": "https://leohuynh.dev/feed.xml"
+    },
+    {
+      "name": "Iced Tea Labs",
+      "avatar_url": "iced_tea_labs.png",
+      "url": "https://icedtealabs.com/feed.xml"
     }
   ]
 }
