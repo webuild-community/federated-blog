@@ -72,11 +72,7 @@ const ReadPage = ({ article, author }: ReadPageProps) => {
   const router = useRouter();
 
   const backButtonClickHandler = () => {
-    if (window.history.length > 1) {
-      router.back();
-    } else {
-      router.push('/');
-    }
+    router.push('/');
   };
 
   return (
