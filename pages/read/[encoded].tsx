@@ -3,7 +3,7 @@ import { EntryAuthor } from '@/components/Entry';
 import Layout from '@/components/Layout';
 import { RoundedPanel } from '@/components/RoundedPane';
 import styles from '@/styles/Read.module.css';
-import { Author } from '@/types/sharedTypes';
+import { Article, Author } from '@/types/sharedTypes';
 import { fetchHtml } from '@/utils/fetch';
 import { decodePostUrl } from '@/utils/url';
 import { Button, DivPx } from '@moai/core';
@@ -57,13 +57,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-interface Article {
-  title: string;
-  // html content
-  content: string;
-  // original link
-  link: string;
-}
 interface ReadPageProps {
   article: Article;
   author: Author;
@@ -100,7 +93,6 @@ const ReadPage = ({ article, author }: ReadPageProps) => {
         <EntryAuthor author={author} />
         <h1>{article.title}</h1>
         <div dangerouslySetInnerHTML={{ __html: article.content }} />
-
         <DivPx size={16} />
         <Button icon={ArrowLeft} onClick={backButtonClickHandler}>
           Quay về trang chủ
