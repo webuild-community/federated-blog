@@ -1,11 +1,10 @@
 import Layout from '@/components/Layout';
 import Link from 'next/link';
-import styles from './WeBuild404.module.css';
+import styles from './NotFoundPage.module.css';
 
-export default function Custom404() {
+export default function NotFoundPage() {
   return (
     <Layout>
-      {/* <Image src="/404.png" width="200" height="200"/> */}
       <h2 className={styles.heading}>404</h2>
       <p className={styles.paragraph}>
         <strong>Trang này không tồn tại</strong>

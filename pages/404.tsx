@@ -1,5 +1,5 @@
-import WeBuild404 from '@/components/WeBuild404';
+import NotFoundPage from '@/components/NotFoundPage ;
 
 export default function Custom404() {
-  return <WeBuild404 />;
+  return <NotFoundPage />;
 }
