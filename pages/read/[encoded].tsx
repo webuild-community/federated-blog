@@ -80,7 +80,9 @@ const ReadPage = ({ article, author }: ReadPageProps) => {
   };
 
   return (
-    <Layout>
+    <Layout
+      title={`${article.title} | ${author.name} | WeBuild Community Blog`}
+    >
       <RoundedPanel>
         <div className={styles.topNavigationSection}>
           <Button icon={ArrowLeft} onClick={backButtonClickHandler}>
