@@ -99,6 +99,11 @@
       "name": "Iced Tea Labs",
       "avatar_url": "iced_tea_labs.png",
       "url": "https://icedtealabs.com/feed.xml"
+    },
+    {
+      "name": "Hi, I'm Nhân",
+      "avatar_url": "nhanb.jpg",
+      "url": "https://hi.imnhan.com/feeds/atom.xml"
     }
   ]
 }
