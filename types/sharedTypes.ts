@@ -12,3 +12,11 @@ export interface Author {
   avatar_url: string;
   url: string;
 }
+
+export interface Article {
+  title: string;
+  // html content
+  content: string;
+  // original link
+  link: string;
+}

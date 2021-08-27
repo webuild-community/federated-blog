@@ -1,0 +1,19 @@
+.heading,
+.paragraph {
+  text-align: center;
+}
+
+h2.heading {
+  font-size: 6rem;
+  border-bottom: none;
+  color: var(--text-normal);
+}
+
+p.paragraph {
+  font-size: 1.2rem;
+  color: var(--text-normal);
+}
+
+.paragraph a {
+  text-decoration: underline;
+}
