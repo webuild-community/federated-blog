@@ -33,6 +33,21 @@ body {
   background-color: var(--gray-6);
 }
 
+.dark .github-theme table td,
+.dark .github-theme table th {
+  padding: 6px 13px;
+  border: 1px solid #dfe2e522;
+}
+
+.dark .github-theme table tr {
+  background-color: #ffffff22;
+  border-top: 1px solid #c6cbd122;
+}
+
+.dark .github-theme table tr:nth-child(2n) {
+  background-color: #f6f8fa22;
+}
+
 a {
   color: inherit;
   text-decoration: none;
