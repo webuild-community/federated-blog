@@ -30,6 +30,11 @@ const Header = () => {
           <Link href="/page/random" passHref>
             <Button>Đọc ngẫu nhiên</Button>
           </Link>
+
+          <Link href="/author" passHref>
+            <Button>Authors</Button>
+          </Link>
+
           <Button
             onClick={onToggleTheme}
             icon={theme === 'light' ? HiOutlineMoon : HiOutlineSun}
