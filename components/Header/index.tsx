@@ -32,7 +32,7 @@ const Header = () => {
           </Link>
 
           <Link href="/author" passHref>
-            <Button>Authors</Button>
+            <Button>Về chúng tôi</Button>
           </Link>
 
           <Button

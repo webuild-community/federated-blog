@@ -47,7 +47,7 @@ const AuthorPage = ({ authors }: AuthorProps) => {
   return (
     <Layout>
       <div className={styles.blogPage}>
-        <h3>Thanks to contributed</h3>
+        <h3>Xin cảm ơn sự đóng góp của các tác giả</h3>
         <div className={styles.blogAuthors}>
           {authors.map((author, idx) => (
             <div
