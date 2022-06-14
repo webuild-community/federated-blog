@@ -3,7 +3,7 @@ import { EntryAuthor } from '@/components/Entry';
 import Layout from '@/components/Layout';
 import { RoundedPanel } from '@/components/RoundedPane';
 import styles from '@/styles/Read.module.css';
-import { Article, Author } from '@/types/sharedTypes';
+import { Article, Author, Doc } from '@/types/sharedTypes';
 import { fetchHtml } from '@/utils/fetch';
 import { decodePostUrl } from '@/utils/url';
 import { Button, DivPx } from '@moai/core';
@@ -16,20 +16,36 @@ import {
   HiOutlineArrowLeft as ArrowLeft,
   HiOutlineExternalLink as ExternalLink
 } from 'react-icons/hi';
+import Parser from 'rss-parser';
 
 const CONTENT_PAGE_CACHE_TIME = 60 * 60 * 24 * 7; // 7 days
+
+async function isArticleBelongsToAuthor(url: string, author: Author) {
+  const parser = new Parser();
+  const result = await parser.parseURL(author.url);
+  const docs = result?.items ?? ([] as Doc[]);
+  const isCorrectOwnership = docs.some((doc) => doc.link === url);
+  return isCorrectOwnership;
+}
 
 export const getStaticProps: GetStaticProps = async (context) => {
   try {
     const params = context.params ?? {};
     const encoded = params?.encoded as string;
     const { author, url } = decodePostUrl(encoded);
+    const matchedAuthor = channelsData.channels[author];
+
+    if (!(await isArticleBelongsToAuthor(url, matchedAuthor))) {
+      return {
+        notFound: true
+      };
+    }
+
     const htmlContent = await fetchHtml(url);
     const doc = new JSDOM(htmlContent, { url });
     const DOMPurify = createDOMPurify(doc.window as unknown as Window);
     const reader = new Readability(doc.window.document);
     const article = reader.parse();
-    const matchedAuthor = channelsData.channels[author];
 
     return {
       revalidate: CONTENT_PAGE_CACHE_TIME,
