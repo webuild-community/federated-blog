@@ -9,5 +9,6 @@ module.exports = withPlausibleProxy()({
         permanent: true
       }
     ];
-  }
+  },
+  swcMinify: true
 });
