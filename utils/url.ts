@@ -13,13 +13,13 @@ export const getHostName = (url: string): string => {
 
 export const encodePostUrl = (url: string, author: number) => {
   const buffer = author.toString() + '|' + url.replace(/https?:\/\//, '');
-  return base64.encode(buffer);
+  return encodeURIComponent(base64.encode(buffer));
 };
 
 export const decodePostUrl = (
   buffer: string
 ): { author: number; url: string } => {
-  const decoded = base64.decode(buffer);
+  const decoded = base64.decode(decodeURIComponent(buffer));
   const match = decoded.match(/(\d+)\|(.*)/) ?? [];
   if (match.length > 2) {
     const author = +match[1];
