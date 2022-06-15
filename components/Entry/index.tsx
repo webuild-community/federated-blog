@@ -28,7 +28,7 @@ export const EntryAuthor = ({ author }: EntryAuthorProps) => {
         />
       </div>
       <div className="info">
-        <Link href={`/author/${hostName}`} passHref>
+        <Link href={`/author/${hostName}`}>
           <a>
             <b>{name}</b>
           </a>
@@ -53,13 +53,17 @@ export const Entry = ({ doc, showAuthor = true }: EntryProps) => {
     <RoundedPanel>
       {showAuthor && <EntryAuthor author={doc.author} />}
       <h3 className="entry-title mt-0">
-        <a href={`/read/${encodedUrl}`}>{doc.title}</a>
+        <Link href={`/read/${encodedUrl}`}>
+          <a>{doc.title}</a>
+        </Link>
       </h3>
       <p>Đăng ngày {formatDate(doc.pubDate as string)}</p>
       <p>{excerpt(minimumStringLength(doc.contentSnippet, 5), 50)}</p>
       <div className={styles.readMoreArea}>
-        <Link href={`/read/${encodedUrl}`} passHref>
-          <Button highlight>Đọc tiếp</Button>
+        <Link href={`/read/${encodedUrl}`}>
+          <a>
+            <Button highlight>Đọc tiếp</Button>
+          </a>
         </Link>
         <Button iconRight icon={externalLink} href={doc.link} target="_blank">
           Đọc trên blog của tác giả

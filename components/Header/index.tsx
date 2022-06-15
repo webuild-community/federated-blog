@@ -21,14 +21,16 @@ const Header = () => {
   return (
     <header className={styles.header}>
       <div className={styles.headerContent}>
-        <Link href="/" passHref>
+        <Link href="/page/1">
           <a>
             <Logo />
           </a>
         </Link>
         <div className={styles.headerNav}>
-          <Link href="/page/random" passHref>
-            <Button>Đọc ngẫu nhiên</Button>
+          <Link href="/page/random">
+            <a>
+              <Button>Đọc ngẫu nhiên</Button>
+            </a>
           </Link>
           <Button
             onClick={onToggleTheme}
