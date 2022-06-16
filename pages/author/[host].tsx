@@ -78,12 +78,12 @@ const AuthorPage = ({ docs, author }: HomeProps) => {
         </div>
         <h2 className={styles.bigAssProfile_Name}>{author.name}</h2>
         <div className={styles.profileDetails}>
-          <Link href={blogLink} passHref>
+          <Link href={blogLink}>
             <a className={styles.profileLink}>
               <Icon component={HiOutlineLink} /> {getHostName(author.url)}
             </a>
           </Link>
-          <Link href={author.url} passHref>
+          <Link href={author.url}>
             <a className={styles.profileLink}>
               <Icon component={HiOutlineRss} /> {rssLinkDisplay}
             </a>

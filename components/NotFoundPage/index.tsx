@@ -9,7 +9,11 @@ export default function NotFoundPage() {
       <p className={styles.paragraph}>
         <strong>Trang này không tồn tại</strong>
         <br />
-        Nhấn <Link href="/">vào đây</Link> để quay lại trang chủ
+        Nhấn{' '}
+        <Link href="/page/1">
+          <a>vào đây</a>
+        </Link>{' '}
+        để quay lại trang chủ
       </p>
     </Layout>
   );
