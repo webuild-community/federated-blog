@@ -32,6 +32,11 @@ const Header = () => {
               <Button>Đọc ngẫu nhiên</Button>
             </a>
           </Link>
+
+          <Link href="/author" passHref>
+            <Button>Về chúng tôi</Button>
+          </Link>
+
           <Button
             onClick={onToggleTheme}
             icon={theme === 'light' ? HiOutlineMoon : HiOutlineSun}
