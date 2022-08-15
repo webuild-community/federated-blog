@@ -109,6 +109,11 @@
       "name": "Pixel Carrot",
       "avatar_url": "pixelcarrot.png",
       "url": "https://pixelcarrot.com/feed.xml"
+    },
+    {
+      "name": "12bit",
+      "avatar_url": "12bit.png",
+      "url": "https://12bit.vn/index.xml"
     }
   ]
 }
